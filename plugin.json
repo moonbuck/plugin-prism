@@ -3,7 +3,8 @@
     "title": "Moondeer's PrismJS",
     "description": "A plugin for injecting prismjs for syntax highlighting.",
     "includes": [
-      "prismjs-injection.html"
+      "prismjs-injection.html",
+      "/assets/js/prism.js"
       ],
      "fields": [
         {
