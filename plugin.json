@@ -1,15 +1,20 @@
 {
     "version": "1.0.0",
-    "title": "Moondeer's Prism",
+    "title": "Moondeer's PrismJS",
     "description": "A plugin for injecting prismjs for syntax highlighting.",
     "includes": [
-      "/assets/js/prims.js"
+      "prismjs-injection.html"
       ],
      "fields": [
-      {
+        {
           "field": "params.prismjs_theme",
           "label": "PrismJS Theme",
           "placeholder": "default"
+        },
+        {
+          "field": "params.prismjs_font_size",
+          "label": "Font Size",
+          "placeholder": "0.5rem"
         }
       ]
   }

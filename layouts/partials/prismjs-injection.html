@@ -1,0 +1,5 @@
+{{ $theme := site.Params.prismjs_theme | default "default" }}
+<link rel="stylesheet" href="/assets/css/prism-{{ $theme }}.css">
+<script src="/assets/js/prism.js"></script>
+{{ $font_size := site.Params.prismjs_font_size | default "0.5rem" }}
+<style>code[class*=language-],pre[class*=language-] { font-size: {{ $font_size }} !important; }</style>

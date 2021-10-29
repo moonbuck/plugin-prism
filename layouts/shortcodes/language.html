@@ -1,0 +1,19 @@
+{{ if (and (.Get 0) .Inner) }}
+
+{{ $language := .Get 0 }}
+
+{{ $code := .Inner | markdownify }}
+
+{{ if hasPrefix $code "<pre><code>" }}
+
+<p>code block detected and the language has been specified as '{{ $language }}'</p>
+
+
+
+{{ else if hasPrefix $code "<code>" }}
+
+<p>inline code detected and the language has been specified as '{{ $language }}'</p>
+
+{{ end }}
+
+{{ end }}
