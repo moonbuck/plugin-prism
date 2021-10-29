@@ -1,5 +1,5 @@
 {
-    "version": "1.0.0",
+    "version": "2.0.0",
     "title": "Moondeer's PrismJS",
     "description": "A plugin for injecting prismjs for syntax highlighting.",
     "includes": [
