@@ -6,13 +6,20 @@
 
 {{ if hasPrefix $code "<pre><code>" }}
 
-<p>code block detected and the language has been specified as '{{ $language }}'</p>
+{{ $code = strings.TrimPrefix "<pre><code>" $code | strings.TrimSuffix "</code></pre>" }}
 
+<pre><code class="language-{{ $language }}">
+{{ $code | htmlUnescape | safeHTML }}
+</code></pre>
 
 
 {{ else if hasPrefix $code "<code>" }}
 
-<p>inline code detected and the language has been specified as '{{ $language }}'</p>
+{{ $code = strings.TrimPrefix "<code>" $code | strings.TrimSuffix "</code>" }}
+
+<code class="language-{{ $language }}">
+{{ $code | htmlUnescape | safeHTML }}
+</code>
 
 {{ end }}
 
