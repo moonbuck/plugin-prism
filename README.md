@@ -30,7 +30,7 @@ Or, you could toss in the `line-numbers` class, kinda like `<pre class="line-num
 
 ![](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/json_grammar_line_numbers.jpeg)
 
-I have noticed that the line number appearance can be kinda spotty as far as alignment. The probably seems to lie somewhere in the CSS. The HTML DOM contains the correct number of generated `<span>` tags to represent the lines.
+I have noticed that the line number appearance can be kinda spotty as far as alignment. The problem seems to lie somewhere in the CSS. The HTML DOM contains the correct number of generated `<span>` tags to represent the lines.
 
 Let’s check out the plugin parameters, shall we?
 
