@@ -4,7 +4,7 @@
     "description": "A plugin for injecting prismjs for syntax highlighting.",
     "includes": [
       "prismjs-injection.html",
-      "/assets/js/prism.js"
+      "/assets/css/prism.css"
       ],
      "fields": [
         {
