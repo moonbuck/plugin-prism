@@ -8,8 +8,13 @@
 
 {{ $code = strings.TrimPrefix "<pre><code>" $code | strings.TrimSuffix "</code></pre>" }}
 
+{{ $code = htmlUnescape $code }}
+
+{{ $code = replaceRE "<" "&lt;" $code }}
+{{ $code = replaceRE "&" "&amp;" $code }}
+
 <pre class="line-numbers"><code class="language-{{ $language }}">
-{{ $code | htmlUnescape | safeHTML }}
+{{ htmlUnescape  $code | safeHTML }}
 </code></pre>
 
 
@@ -17,8 +22,13 @@
 
 {{ $code = strings.TrimPrefix "<code>" $code | strings.TrimSuffix "</code>" }}
 
+{{ $code = htmlUnescape $code }}
+
+{{ $code = replaceRE "<" "&lt;" $code }}
+{{ $code = replaceRE "&" "&amp;" $code }}
+
 <code class="language-{{ $language }}">
-{{ $code | htmlUnescape | safeHTML }}
+{{ htmlUnescape  $code | safeHTML }}
 </code>
 
 {{ end }}
