@@ -13,7 +13,7 @@
 {{ $code = replaceRE "<" "&lt;" $code }}
 {{ $code = replaceRE "&" "&amp;" $code }}
 
-<pre class="line-numbers"><code class="language-{{ $language }}">
+<pre class="code-block line-numbers"><code class="language-{{ $language }}">
 {{ printf "%s" $code | htmlUnescape | safeHTML }}
 </code></pre>
 
