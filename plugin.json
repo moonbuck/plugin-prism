@@ -1,7 +1,7 @@
 {
-    "version": "2.0.0",
-    "title": "Moondeer's PrismJS",
-    "description": "A plugin for injecting prismjs for syntax highlighting.",
+    "version": "3.0.0",
+    "title": "Moondeer's Prism",
+    "description": "A plugin for injecting Prism for syntax highlighting.",
     "includes": [
       "prismjs-injection.html",
       "/assets/css/prism.css"
@@ -16,6 +16,11 @@
           "field": "params.prismjs_font_size",
           "label": "Font Size",
           "placeholder": "0.5rem"
+        },
+        {
+          "field": "params.prismjs_line_numbers",
+          "label": "Add Line Numbers by Default",
+          "placeholder": "false"
         }
       ]
   }
