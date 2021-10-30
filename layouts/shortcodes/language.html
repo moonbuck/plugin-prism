@@ -14,7 +14,7 @@
 {{ $code = replaceRE "&" "&amp;" $code }}
 
 <pre class="line-numbers"><code class="language-{{ $language }}">
-{{ htmlUnescape  $code | safeHTML }}
+{{ printf "%s" $code | htmlUnescape | safeHTML }}
 </code></pre>
 
 
@@ -28,7 +28,7 @@
 {{ $code = replaceRE "&" "&amp;" $code }}
 
 <code class="language-{{ $language }}">
-{{ htmlUnescape  $code | safeHTML }}
+{{ printf "%s" $code | htmlUnescape | safeHTML }}
 </code>
 
 {{ end }}
