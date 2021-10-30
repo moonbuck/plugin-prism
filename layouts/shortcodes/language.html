@@ -2,8 +2,12 @@
 {{- if (and (and .IsNamedParams (.Get "language")) .Inner) -}}
   {{- $language = .Get "language" -}}
 {{- else if (and (.Get 0) .Inner) -}}
-  {{- $language := .Get 0 -}}
+  {{- $language = .Get 0 -}}
 {{- end -}}
+
+<p>{{ $language }}</p>
+
+{{ if $language }}
 
 {{- $code := .Inner | markdownify | chomp -}}
 
@@ -16,7 +20,7 @@
 
 {{- $pre_class := "code-block" -}}
 {{- if (and .IsNamedParams (.Get "line-numbers")) -}}
-  {{- $pre_class = printf"%s line-numbers" $pre_class -}}
+  {{- $pre_class = printf "%s line-numbers" $pre_class -}}
 {{ else if (and site.Params.prismjs_line_numbers (eq "true" site.Params.prismjs_line_numbers)) }}
   {{- $pre_class = printf"%s line-numbers" $pre_class -}}
 {{- end -}}
