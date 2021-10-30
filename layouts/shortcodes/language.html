@@ -2,7 +2,7 @@
 
 {{ $language := .Get 0 }}
 
-{{ $code := .Inner | markdownify }}
+{{ $code := .Inner | markdownify | chomp }}
 
 {{ if hasPrefix $code "<pre><code>" }}
 
