@@ -10,7 +10,7 @@
         {
           "field": "params.prismjs_theme",
           "label": "PrismJS Theme",
-          "placeholder": "default"
+          "placeholder": "moondeer"
         },
         {
           "field": "params.prismjs_font_size",
