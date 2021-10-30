@@ -5,8 +5,6 @@
   {{- $language = .Get 0 -}}
 {{- end -}}
 
-<p>{{ $language }}</p>
-
 {{ if $language }}
 
 {{- $code := .Inner | markdownify | chomp -}}
@@ -22,7 +20,7 @@
 {{- if (and .IsNamedParams (.Get "line-numbers")) -}}
   {{- $pre_class = printf "%s line-numbers" $pre_class -}}
 {{ else if (and site.Params.prismjs_line_numbers (eq "true" site.Params.prismjs_line_numbers)) }}
-  {{- $pre_class = printf"%s line-numbers" $pre_class -}}
+  {{- $pre_class = printf "%s line-numbers" $pre_class -}}
 {{- end -}}
 
 <pre class="{{ $pre_class }}"><code class="language-{{ $language }}">
