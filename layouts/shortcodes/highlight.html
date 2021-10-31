@@ -1,0 +1,5 @@
+<h5>highlight</h5>
+{{ if (.Inner | hasPrefix "```" }}
+found code fence opening backticks
+{{ end }}
+.Inner = {{ .Inner | htmlEscape }}

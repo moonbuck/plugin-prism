@@ -18,6 +18,11 @@
           "placeholder": "0.5rem"
         },
         {
+          "field": "params.prismjs_minify", 
+          "label": "Minify CSS and Javascript",
+          "placeholder": "true"
+        },
+        {
           "field": "params.prismjs_line_numbers",
           "label": "Add Line Numbers by Default",
           "placeholder": "false"
