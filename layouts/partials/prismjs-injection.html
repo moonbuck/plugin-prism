@@ -10,12 +10,12 @@
 {{ end }}
 
 {{/* Link the stylesheet for the theme */}}
-<!--<link rel="stylesheet" href="/assets/css/themes/{{ $theme | safeHTMLAttr }}">-->
+{{ printf "<!--<link rel=\"stylesheet\" href=\"/assets/css/themes/%s\">-->" $theme | safeHTML }}
 <link rel="stylesheet" href="/assets/css/themes/prism-moondeer.min.css">
 
 
 {{/* Link the javascript */}}
-<!--<script src="/assets/js/{{ $script_src | safeHTMLAttr }}"></script>-->
+{{ printf "<!--<script src=\"/assets/js/%s\"></script>-->" $script_src | safeHTML }}
 <script src="/assets/js/prism.min.js"></script>
 
 {{/* Inject a style tag enforcing the desired font size */}}
