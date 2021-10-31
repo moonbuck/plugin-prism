@@ -1,22 +1,16 @@
 {{/* Determine the theme and resolve whether to use minified CSS and Javascript */}}
 {{ $theme := site.Params.prismjs_theme | default "moondeer" }}
-{{ $script_src := "prism" }}
+{{ $minify := true }}
 {{ if (and (site.Params.prismjs_minify) (eq site.Params.prismjs_minify "false") )}}
-{{ $theme = printf "prism-%s.css" $theme }}
-{{ $script_src = printf "%s.js" $theme }}
-{{ else }}
-{{ $theme = printf "prism-%s.min.css" }}
-{{ $script_src = printf "%s.min.js" }}
+{{ $minify = false }}
 {{ end }}
 
 {{/* Link the stylesheet for the theme */}}
-{{ printf "<!--<link rel=\"stylesheet\" href=\"/assets/css/themes/%s\">-->" $theme | safeHTML }}
-<link rel="stylesheet" href="/assets/css/themes/prism-moondeer.min.css">
+<link rel="stylesheet" href="/assets/css/themes/prism-{{ $theme }}{{ with $minify }}.min{{ end }}.css">
 
 
 {{/* Link the javascript */}}
-{{ printf "<!--<script src=\"/assets/js/%s\"></script>-->" $script_src | safeHTML }}
-<script src="/assets/js/prism.min.js"></script>
+<script src="/assets/js/prism{{ with $minify }}.min{{ end }}.js"></script>
 
 {{/* Inject a style tag enforcing the desired font size */}}
 {{ $font_size := site.Params.prismjs_font_size | default "0.5rem" }}
