@@ -1,30 +1,41 @@
 {{ if .inner }}
 
-{{ $code := .Inner | markdownify | chomp }}
+{{ printf "<!--%s-->" .inner | safeHTML }}
 
-{{ $language := findRE `class=".*language-([^"]+).*"` $code }}
+{{ $fence_open := .inner | findRE "^[ \n\t\r]*```" }}
+{{ if $fence_open }}
+{{ $fence_open = index $fence_open 0 }}
 
-{{ $language = findRE `language-([[a-z0-9-]+)` $code }}
-{{ if $language }} {{ $language = index $language 0 }} {{ end }}
+{{ $code := .inner | strings.TrimPrefix $fence_open }}
+<p>code fence detected</p>
 
-{{ $opening_tags := findRE `<pre[^>]*><code[^>]*>` $code }}
-{{ $closing_tags := findRE `</code></pre>` $code }}
+{{ $language := $code | findRE "^[-a-z0-9]+" }}
+{{ if $language }}
+{{ $language = index $language 0 }}
 
-{{ if (and $opening_tags $closing_tags) }}
-{{/* code block */}}
+{{ $code = $code | strings.TrimPrefix $language }}
+<p>language specification detected</p>
 
-{{ $code = $code | strings.TrimPrefix (index $opening_tags 0) | strings.TrimSuffix (index $closing_tags 0)}}
+{{ $fence_close := $code | findRE "```[ \n\t\r]*$" }}
+{{ if $fence_close }}
+{{ $fence_close = index $fence_close 0 }}
 
-{{- $pre_class := "code-block" -}}
-{{- if (and .line_numbers (eq .line_numbers "true")) -}}
-  {{- $pre_class = printf "%s line-numbers" $pre_class -}}
+{{ $code = $code | strings.TrimSuffix $fence_close }}
+<p>fence end detected</p>
+
+{{ $class := printf "code-block language-%s" $language }}
+{{ if (and .line_numbers (eq .line_numbers "true")) }}
+{{ $class = printf "%s line-numbers" $class }}
 {{ else if (and (not .line_numbers) (and site.Params.prismjs_line_numbers (eq "true" site.Params.prismjs_line_numbers))) }}
-  {{- $pre_class = printf "%s line-numbers" $pre_class -}}
-{{- end -}}
+{{ $class = printf "%s line-numbers" $class }}
+{{ end }}
 
-<pre class="{{ $pre_class }}"><code class="{{ $language }}">
-{{ printf "%s" $code | htmlUnescape | safeHTML }}
-</code></pre>
+{{ printf "<script type='text/plain' class='%s'>\n%s\n</script>" $class $code | safeHTML }}
 
+{{ end }}
+
+{{ end }}
+
+{{ end }}
 
 {{ end }}

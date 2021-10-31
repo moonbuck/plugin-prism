@@ -26,6 +26,11 @@
           "field": "params.prismjs_line_numbers",
           "label": "Add Line Numbers by Default",
           "placeholder": "false"
+        },
+        {
+          "field": "params.prismjs_soft_wrap",
+          "label": "Soft Wrap",
+          "placeholder": "true"
         }
       ]
   }
