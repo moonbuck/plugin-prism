@@ -1,5 +1,20 @@
 <h5>highlight</h5>
-{{ if (.Inner | hasPrefix "```" }}
-found code fence opening backticks
+{{ $inner_text := .Inner }}
+{{ $markdownified := $inner_text | markdownify }}
+
+<p>markdownified = {{ $markdownified | htmlEscape }}</p>
+
+{{ if (findRE "```[a-z]+" $inner_text) }}
+
+<p>found code fence opening backticks</p>
+
+{{ $language := replaceRE "```([a-z]+)" "$1" $inner_text }}
+
+{{ $code := replaceRE "```[a-z]+" "$1" $inner_text }}
+
+<p> language = {{ $language }}</p>
+<p>code = {{ $code | htmlEscape | safeHTML }}</p>
 {{ end }}
-.Inner = {{ .Inner | htmlEscape }}
+
+
+<p>inner_text = {{ $inner_text | htmlEscape | safeHTML }}</p>
