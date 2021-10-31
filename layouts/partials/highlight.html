@@ -25,7 +25,7 @@
 {{ $class = printf "%s line-numbers" $class }}
 {{ end }}
 
-{{ printf "<script type='text/plain' class='%s'>\n%s\n</script>" $class $code | safeHTML }}
+{{ printf "<script type='text/plain' class='%s'>\n%s\n</script>" $class (htmlUnescape $code) | safeHTML }}
 
 {{ end }}
 
