@@ -1,7 +1,7 @@
 code[class*=language-],
 pre[class*=language-]{
   color: #d7d7d6;
-  background: rgba(57, 57, 57, 1.0);
+  background: rgba(57, 57, 57, 0.7);
   text-shadow: none; /*0 1px #000;*/
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   font-size: 1em;
@@ -50,7 +50,7 @@ pre[class*=language-] {
 
 :not(pre) > code[class*=language-],
 pre[class*=language-] {
-  background: rgba(57, 57, 57, 1.0);
+  background: rgba(57, 57, 57, 0.7);
 }
 
 :not(pre) > code[class*=language-] {
