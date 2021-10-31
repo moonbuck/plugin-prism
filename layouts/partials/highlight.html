@@ -1,0 +1,30 @@
+{{ if .inner }}
+
+{{ $code := .Inner | markdownify | chomp }}
+
+{{ $language := findRE `class=".*language-([^"]+).*"` $code }}
+
+{{ $language = findRE `language-([[a-z0-9-]+)` $code }}
+{{ if $language }} {{ $language = index $language 0 }} {{ end }}
+
+{{ $opening_tags := findRE `<pre[^>]*><code[^>]*>` $code }}
+{{ $closing_tags := findRE `</code></pre>` $code }}
+
+{{ if (and $opening_tags $closing_tags) }}
+{{/* code block */}}
+
+{{ $code = $code | strings.TrimPrefix (index $opening_tags 0) | strings.TrimSuffix (index $closing_tags 0)}}
+
+{{- $pre_class := "code-block" -}}
+{{- if (and .line_numbers (eq .line_numbers "true")) -}}
+  {{- $pre_class = printf "%s line-numbers" $pre_class -}}
+{{ else if (and (not .line_numbers) (and site.Params.prismjs_line_numbers (eq "true" site.Params.prismjs_line_numbers))) }}
+  {{- $pre_class = printf "%s line-numbers" $pre_class -}}
+{{- end -}}
+
+<pre class="{{ $pre_class }}"><code class="{{ $language }}">
+{{ printf "%s" $code | htmlUnescape | safeHTML }}
+</code></pre>
+
+
+{{ end }}
