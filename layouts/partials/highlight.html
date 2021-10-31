@@ -1,27 +1,22 @@
 {{ if .inner }}
 
-{{ printf "<!--%s-->" .inner | safeHTML }}
-
 {{ $fence_open := .inner | findRE "^[ \n\t\r]*```" }}
 {{ if $fence_open }}
 {{ $fence_open = index $fence_open 0 }}
 
 {{ $code := .inner | strings.TrimPrefix $fence_open }}
-<p>code fence detected</p>
 
 {{ $language := $code | findRE "^[-a-z0-9]+" }}
 {{ if $language }}
 {{ $language = index $language 0 }}
 
 {{ $code = $code | strings.TrimPrefix $language }}
-<p>language specification detected</p>
 
 {{ $fence_close := $code | findRE "```[ \n\t\r]*$" }}
 {{ if $fence_close }}
 {{ $fence_close = index $fence_close 0 }}
 
 {{ $code = $code | strings.TrimSuffix $fence_close }}
-<p>fence end detected</p>
 
 {{ $class := printf "code-block language-%s" $language }}
 {{ if (and .line_numbers (eq .line_numbers "true")) }}
