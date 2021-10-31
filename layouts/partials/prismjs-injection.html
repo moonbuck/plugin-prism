@@ -10,10 +10,12 @@
 {{ end }}
 
 {{/* Link the stylesheet for the theme */}}
-<link rel="stylesheet" href="/assets/css/themes/{{ $theme }}">
+{{/*<link rel="stylesheet" href="/assets/css/themes/{{ $theme }}">*/}}
+<link rel="stylesheet" href="/assets/css/themes/prism-moondeer.css">
 
 {{/* Link the javascript */}}
-<script src="/assets/js/{{ $script_src }}"></script>
+{{/*<script src="/assets/js/{{ $script_src }}"></script>*/}}
+<script src="/assets/js/prism-languages.js"></script>
 
 {{/* Inject a style tag enforcing the desired font size */}}
 {{ $font_size := site.Params.prismjs_font_size | default "0.5rem" }}
