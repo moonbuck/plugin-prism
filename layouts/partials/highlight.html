@@ -37,7 +37,11 @@
 {{ $class = printf "%s %s" $class . }}
 {{ end }}
 
+{{ with .dependencies }}
+{{ printf "<script type='text/plain' class='%s' data-dependencies='%s'>\n%s\n</script>" $class . (htmlUnescape $code) | safeHTML }}
+{{ else }}
 {{ printf "<script type='text/plain' class='%s'>\n%s\n</script>" $class (htmlUnescape $code) | safeHTML }}
+{{ end }}
 
 {{ end }}
 

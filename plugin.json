@@ -55,22 +55,12 @@
         {
           "field": "params.prismjs_whitespace_settings_json",
           "label": "Whitespace Settings",
-          "placeholder": "{}"
+          "placeholder": ""
         },
         {
           "field": "params.prismjs_keep_markup",
           "label": "Keep Markup",
           "placeholder": "true"
-        },
-        {
-          "field": "params.prismjs_class_prefix",
-          "label": "Class Prefix",
-          "placeholder": "prism--"
-        },
-        {
-          "field": "params.prismjs_class_map",
-          "label": "Class Map",
-          "placeholder": "{}"
         }
      ]
   }
