@@ -89,13 +89,13 @@ The `Enable Toolbar` parameter controls whether the toolbar plugin gets loaded.
 The `Soft Wrap` parameter controls whether code blocks should wrap long lines.
 
 <figure>
-![Without Soft Wrap](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/no_wrap.jpeg)
 <figcaption>Without Soft Wrap</figcaption>
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/no_wrap.jpeg" />
 </figure>
 
 <figure>
-![Without Soft Wrap](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/soft_wrap.jpeg)
 <figcaption>With Soft Wrap</figcaption>
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/soft_wrap.jpeg" />
 </figure>
 
 The `Show Language` parameter controls whether the plugin for the language toolbar item gets loaded.
@@ -122,25 +122,25 @@ The `Keep Markup` parameter controls whether those `<mark>` tags are preserved b
 `data-language`:  Used to display a specific label whether it has been defined as a language or not
 
 <figure>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/without_data_language.jpeg" />
 <figcaption>Without Setting data-language</figcaption>
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/without_data_language.jpeg" />
 </figure>
 
 <figure>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/with_data_language.jpeg" />
 <figcaption>Withdata-language Set to "Hugo"</figcaption>
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/with_data_language.jpeg" />
 </figure>
 
 `dependencies`: A list of comma-separated language aliases for additional grammars to load
 
 <figure>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/without_dependency.jpeg" />
 <figcaption>Pug Without Less Dependency</figcaption>
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/without_dependency.jpeg" />
 </figure>
 
 <figure>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/with_dependency.jpeg" />
 <figcaption>Pug With Less Dependency</figcaption>
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/with_dependency.jpeg" />
 </figure>
 
 ## Bugs
