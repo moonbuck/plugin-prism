@@ -51,12 +51,12 @@ I have noticed that the line number appearance can be kinda spotty as far as ali
 **[Normalize Whitespace](https://prismjs.com/plugins/normalize-whitespace/ "Normalize Whitespace")**: This plugin helps wrangle whitespace for blocks of code.
 
 <figure>
-<figcaption><i><b>With Whitespace Preserved</b></i></figcaption>
+<figcaption style="float: right;"><i><b>With Whitespace Preserved</b></i></figcaption>
 <img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/line_numbers_preserved_whitespace.jpeg" />
 </figure>
 
 <figure>
-<figcaption><i><b>With Whitespace Normalized</b></i></figcaption>
+<figcaption style="float: right;"><i><b>With Whitespace Normalized</b></i></figcaption>
 <img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/line_numbers_normalized_whitespace.jpeg" />
 </figure>
 
@@ -89,12 +89,12 @@ The `Enable Toolbar` parameter controls whether the toolbar plugin gets loaded.
 The `Soft Wrap` parameter controls whether code blocks should wrap long lines.
 
 <figure>
-<figcaption><i><b>Without Soft Wrap</b></i></figcaption>
+<figcaption style="float: right;"><i><b>Without Soft Wrap</b></i></figcaption>
 <img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/no_wrap.jpeg" />
 </figure>
 
 <figure>
-<figcaption><i><b>With Soft Wrap</b></i></figcaption>
+<figcaption style="float: right;"><i><b>With Soft Wrap</b></i></figcaption>
 <img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/soft_wrap.jpeg" />
 </figure>
 
@@ -122,24 +122,24 @@ The `Keep Markup` parameter controls whether those `<mark>` tags are preserved b
 `data-language`:  Used to display a specific label whether it has been defined as a language or not
 
 <figure>
-<figcaption><i><b>Without Setting <code>data-language</code></b></i></figcaption>
+<figcaption style="float: right;"><i><b>Without Setting <code>data-language</code></b></i></figcaption>
 <img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/without_data_language.jpeg" />
 </figure>
 
 <figure>
-<figcaption><i><b>With <code>data-language</code> Set to "Hugo"</b></i></figcaption>
+<figcaption style="float: right;"><i><b>With <code>data-language</code> Set to "Hugo"</b></i></figcaption>
 <img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/with_data_language.jpeg" />
 </figure>
 
 `dependencies`: A list of comma-separated language aliases for additional grammars to load
 
 <figure>
-<figcaption><i><b>Pug Without Less Dependency</b></i></figcaption>
+<figcaption style="float: right;"><i><b>Pug Without Less Dependency</b></i></figcaption>
 <img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/without_dependency.jpeg" />
 </figure>
 
 <figure>
-<figcaption><i><b>Pug With Less Dependency</b></i></figcaption>
+<figcaption style="float: right;"><i><b>Pug With Less Dependency</b></i></figcaption>
 <img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/with_dependency.jpeg" />
 </figure>
 
