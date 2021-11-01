@@ -46,6 +46,15 @@
 {{ end }}
 {{ end }}
 
+{{ with .soft_wrap }}
+{{ $style := cond (eq . "true") "white-space:pre-wrap!important" "white-space:pre!important" }}
+{{ if $attributes }}
+{{ $attributes = printf "%s style='%s'" $attributes $style }}
+{{ else }}
+{{ $attributes = printf "style='%s'" $style }}
+{{ end }}
+{{ end }}
+
 {{ with $attributes }}
 {{ printf "<script type='text/plain' class='%s' %s>\n%s\n</script>" $class . (htmlUnescape $code) | safeHTML }}
 {{ else }}

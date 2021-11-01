@@ -32,6 +32,9 @@
 
 			// copy class name
 			pre.className = code.className = element.className;
+      
+      // copy style
+      pre.style.whiteSpace = code.style.whiteSpace = element.style.whiteSpace;
 
 			// copy all "data-" attributes
 			var dataset = element.dataset;
