@@ -1,46 +1,70 @@
 {{- $language := false -}}
+
 {{- if (and (and .IsNamedParams (.Get "language")) .Inner) -}}
-  {{- $language = .Get "language" -}}
+{{- $language = .Get "language" -}}
 {{- else if (and (.Get 0) .Inner) -}}
-  {{- $language = .Get 0 -}}
+{{- $language = .Get 0 -}}
 {{- end -}}
 
 {{ if $language }}
 
 {{- $code := .Inner | markdownify | chomp -}}
 
-{{- if hasPrefix $code "<pre><code>" -}}
+{{ $open_tags := $code | findRE "^[ \n\t\r]*<pre[^>]*><code[^>]*>" }}
+  
+  {{ if $open_tags }}
+  
+{{ $open_tags = index $open_tags 0 }}
 
-{{- $code = strings.TrimPrefix "<pre><code>" $code | strings.TrimSuffix "</code></pre>" -}}
-{{- $code = htmlUnescape $code -}}
-{{- $code = replaceRE "<" "&lt;" $code -}}
-{{- $code = replaceRE "&" "&amp;" $code -}}
+{{ $code = $code | strings.TrimPrefix $open_tags }}
 
-{{- $pre_class := "code-block" -}}
-{{- if (and .IsNamedParams (.Get "line-numbers")) -}}
-  {{- $pre_class = printf "%s line-numbers" $pre_class -}}
-{{ else if (and (not .IsNamedParams) (and site.Params.prismjs_line_numbers (eq "true" site.Params.prismjs_line_numbers))) }}
-  {{- $pre_class = printf "%s line-numbers" $pre_class -}}
-{{- end -}}
+{{ $close_tags := $code | findRE "</code></pre>[ \n\t\r]*$" }}
 
-<pre class="{{ $pre_class }}"><code class="language-{{ $language }}">
-{{ printf "%s" $code | htmlUnescape | safeHTML }}
-</code></pre>
+    {{ if $close_tags }}
 
+{{ $close_tags = index $close_tags 0 }}
 
-{{ else if hasPrefix $code "<code>" }}
+{{ $code = $code | strings.TrimSuffix $close_tags }}
 
-{{ $code = strings.TrimPrefix "<code>" $code | strings.TrimSuffix "</code>" }}
+{{ $inner := printf "```%s\n%s\n```" $language $code }}
 
-{{ $code = htmlUnescape $code }}
+      {{ if .IsNamedParams }}
 
-{{ $code = replaceRE "<" "&lt;" $code }}
-{{ $code = replaceRE "&" "&amp;" $code }}
+{{ partial "highlight.html" (dict "inner" $inner "line_numbers" (.Get "line-numbers") "preserve_whitespace" (.Get "preserve-whitespace") "keep_markup" (.Get "keep-markup") "data_language" (.Get "data-language") "dependencies" (.Get "dependencies")) }}
 
-<code class="language-{{ $language }}">
-{{ printf "%s" $code | htmlUnescape | safeHTML }}
-</code>
+      {{ else }}
 
-{{ end }}
+{{ partial "highlight.html" (dict "inner" $inner) }}
 
+      {{ end }}
+
+    {{ end }}
+    
+  {{ else }}
+    
+{{ $open_tag := $code | findRE "^[ \n\t\r]*<code[^>]*>" }}
+
+    {{ if $open_tag }}
+      
+{{ $open_tag = index $open_tag 0 }}
+
+{{ $code = $code | strings.TrimPrefix $open_tag }}
+
+{{ $close_tag := $code | findRE "</code>[ \n\t\r]*$" }}
+
+      {{ if $close_tag }}
+      
+{{ $close_tag = index $close_tag 0 }}
+
+{{ $code = $code | strings.TrimSuffix | htmlUnescape }}
+{{ $code = $code | replaceRE "<" "&lt;" | replaceRE "&" "&amp;" }}
+
+<code class="language-{{ $language }}">{{ printf "%s" $code | safeHTML }}</code>
+
+      {{ end }}
+      
+    {{ end }}
+    
+  {{ end }}
+  
 {{ end }}
