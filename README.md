@@ -20,9 +20,11 @@ There are two shortcodes living at `/layouts/shortcodes/`. The `highlight` short
 
 ![Code Fence](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/code_fence.jpeg)
 
-The `language` shortcode expects a generic code block (such as [Ulysses](https://ulysses.app "Ulysses") might generate) with the grammar passed as a named parameter, kinda like:
+The `language` shortcode expects a generic code block (such as [Ulysses](https://ulysses.app "Ulysses") might generate) with the grammar passed as a positional parameter, kinda like:
 
  ![Language Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/language_example.jpeg)
+ 
+or with named parameters mirroring those taken by `highlight` with the addition of the mandatory `language` parameter.
 
 Let’s go through the plugins I’ve chosen to include.
 
