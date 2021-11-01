@@ -1,144 +1,145 @@
 # plugin-prismjs
 
-A plugin for [Micro.blog](https://micro.blog "Micro.blog") that injects [Prism](https://prismjs.com/ "Prism") Javascript and CSS stylesheets to enable syntax highlighting for a sh$t ton of grammars within inline `<code>` tags and `<pre><code>` combination code blocks.
+A plugin for [Micro.blog](https://micro.blog "Micro.blog") that injects [Prism](https://prismjs.com/ "Prism") Javascript and CSS stylesheets to enable syntax highlighting for a sh$t ton of grammars within inline `<code>` tags and `<pre><code>` combination code blocks. Its code lives [here](https://github.com/moonbuck/plugin-prismjs "plugin-prismjs").
 
 Prism looks for `<code class="language-xxx">` tags for inline syntax highlighting and for `<pre><code class="language-xxx">` tags for syntax highlighting blocks of code.
 
-For example, the opening tags for the following would be `<pre><code class="language-ebnf">`:
-![](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/ebnf_grammar.jpeg)
+For example, the opening tags for the following would be `<pre><code class="language-pug">`:
 
-The configuration for the Javascript that lives at `static/assets/js/prism.js` is captured by its monster opening comment block:
+![Simple Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/no_line_numbers.jpeg)
 
-```js
-/* PrismJS 1.25.0
-https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript+abap+abnf+actionscript+ada+agda+al+antlr4+apacheconf+apex+apl+applescript+aql+arduino+arff+asciidoc+aspnet+asm6502+asmatmel+autohotkey+autoit+avisynth+avro-idl+bash+basic+batch+bbcode+bicep+birb+bison+bnf+brainfuck+brightscript+bro+bsl+c+csharp+cpp+cfscript+chaiscript+cil+clojure+cmake+cobol+coffeescript+concurnas+csp+coq+crystal+css-extras+csv+cypher+d+dart+dataweave+dax+dhall+diff+django+dns-zone-file+docker+dot+ebnf+editorconfig+eiffel+ejs+elixir+elm+etlua+erb+erlang+excel-formula+fsharp+factor+false+firestore-security-rules+flow+fortran+ftl+gml+gap+gcode+gdscript+gedcom+gherkin+git+glsl+gn+go+graphql+groovy+haml+handlebars+haskell+haxe+hcl+hlsl+hoon+http+hpkp+hsts+ichigojam+icon+icu-message-format+idris+ignore+inform7+ini+io+j+java+javadoc+javadoclike+javastacktrace+jexl+jolie+jq+jsdoc+js-extras+json+json5+jsonp+jsstacktrace+js-templates+julia+keepalived+keyman+kotlin+kumir+kusto+latex+latte+less+lilypond+liquid+lisp+livescript+llvm+log+lolcode+lua+magma+makefile+markdown+markup-templating+matlab+maxscript+mel+mermaid+mizar+mongodb+monkey+moonscript+n1ql+n4js+nand2tetris-hdl+naniscript+nasm+neon+nevod+nginx+nim+nix+nsis+objectivec+ocaml+opencl+openqasm+oz+parigp+parser+pascal+pascaligo+psl+pcaxis+peoplecode+perl+php+phpdoc+php-extras+plsql+powerquery+powershell+processing+prolog+promql+properties+protobuf+pug+puppet+pure+purebasic+purescript+python+qsharp+q+qml+qore+r+racket+cshtml+jsx+tsx+reason+regex+rego+renpy+rest+rip+roboconf+robotframework+ruby+rust+sas+sass+scss+scala+scheme+shell-session+smali+smalltalk+smarty+sml+solidity+solution-file+soy+sparql+splunk-spl+sqf+sql+squirrel+stan+iecst+stylus+swift+systemd+t4-templating+t4-cs+t4-vb+tap+tcl+tt2+textile+toml+tremor+turtle+twig+typescript+typoscript+unrealscript+uri+v+vala+vbnet+velocity+verilog+vhdl+vim+visual-basic+warpscript+wasm+web-idl+wiki+wolfram+wren+xeora+xml-doc+xojo+xquery+yaml+yang+zig&plugins=line-numbers+toolbar+copy-to-clipboard */ 
-```
+## Plugin Structure
 
-The functionality of the page was spotty, but the following link oughta load that monster configuration up there into the  [Prism Download Page ](https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript+abap+abnf+actionscript+ada+agda+al+antlr4+apacheconf+apex+apl+applescript+aql+arduino+arff+asciidoc+aspnet+asm6502+asmatmel+autohotkey+autoit+avisynth+avro-idl+bash+basic+batch+bbcode+bicep+birb+bison+bnf+brainfuck+brightscript+bro+bsl+c+csharp+cpp+cfscript+chaiscript+cil+clojure+cmake+cobol+coffeescript+concurnas+csp+coq+crystal+css-extras+csv+cypher+d+dart+dataweave+dax+dhall+diff+django+dns-zone-file+docker+dot+ebnf+editorconfig+eiffel+ejs+elixir+elm+etlua+erb+erlang+excel-formula+fsharp+factor+false+firestore-security-rules+flow+fortran+ftl+gml+gap+gcode+gdscript+gedcom+gherkin+git+glsl+gn+go+graphql+groovy+haml+handlebars+haskell+haxe+hcl+hlsl+hoon+http+hpkp+hsts+ichigojam+icon+icu-message-format+idris+ignore+inform7+ini+io+j+java+javadoc+javadoclike+javastacktrace+jexl+jolie+jq+jsdoc+js-extras+json+json5+jsonp+jsstacktrace+js-templates+julia+keepalived+keyman+kotlin+kumir+kusto+latex+latte+less+lilypond+liquid+lisp+livescript+llvm+log+lolcode+lua+magma+makefile+markdown+markup-templating+matlab+maxscript+mel+mermaid+mizar+mongodb+monkey+moonscript+n1ql+n4js+nand2tetris-hdl+naniscript+nasm+neon+nevod+nginx+nim+nix+nsis+objectivec+ocaml+opencl+openqasm+oz+parigp+parser+pascal+pascaligo+psl+pcaxis+peoplecode+perl+php+phpdoc+php-extras+plsql+powerquery+powershell+processing+prolog+promql+properties+protobuf+pug+puppet+pure+purebasic+purescript+python+qsharp+q+qml+qore+r+racket+cshtml+jsx+tsx+reason+regex+rego+renpy+rest+rip+roboconf+robotframework+ruby+rust+sas+sass+scss+scala+scheme+shell-session+smali+smalltalk+smarty+sml+solidity+solution-file+soy+sparql+splunk-spl+sqf+sql+squirrel+stan+iecst+stylus+swift+systemd+t4-templating+t4-cs+t4-vb+tap+tcl+tt2+textile+toml+tremor+turtle+twig+typescript+typoscript+unrealscript+uri+v+vala+vbnet+velocity+verilog+vhdl+vim+visual-basic+warpscript+wasm+web-idl+wiki+wolfram+wren+xeora+xml-doc+xojo+xquery+yaml+yang+zig&plugins=line-numbers+toolbar+copy-to-clipboard "Prism Download Page").
-
-I threw in the copy to clipboard plugin (which is dependent on the toolbar plugin) for that little copy button:
-
-![](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/css_grammar.jpeg)
-
-I also include the line numbers plugin. It looks for tags that include a `line-numbers` class.
-
-For example, the opening tags for this code might be `<pre><code class="language-json">`:
-
-![](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/json_grammar.jpeg)
-
-Or, you could toss in the `line-numbers` class, kinda like `<pre class="line-numbers"><code class="language-json">`:
-
-![](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/json_grammar_line_numbers.jpeg)
-
-I have noticed that the line number appearance can be kinda spotty as far as alignment. The problem seems to lie somewhere in the CSS. The HTML DOM contains the correct number of generated `<span>` tags to represent the lines.
-
-Let’s check out the plugin parameters, shall we?
-
-![](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/plugin_parameters.jpeg)
-
-Alrighty, first up is the theme. I rolled my own `darcula`-esque them and named it `moondeer`. This what you see above and get by default. I included the stylesheets for all the themes that were available on the download page as well. All the stylesheets live at `static/assets/css/prism-STYLE.css`. So the out of the box theme lives at `static/assets/css/prism-moondeer.css`. 
-
-If you want to play around with the themes, these would be the supported parameter values: `moondeer`, `default`, `dark`, `coy`, `funky`, `okaidia`, `solarized-light`, `twilight`, `tomorrow-night`.
+The core Javascript file lives at `/static/assets/js/prism-core.js`. The stylesheets for the various themes live at `/static/assets/css/themes/`. The [language grammars](https://prismjs.com/#supported-languages "Supported Languages") live at `/static/assets/js/components/` .  The scripts for included [plugins](https://prismjs.com/#plugins "Plugins") live at `/static/assets/js/plugins/`.
 
 The stylesheet living at `static/assets/css/prism.css` addresses a line-number spacing issue I ran into.
 
-So, the `Font Size` parameter gets inserted into the partial injected into the page `<head>`. Rather than maintain a bunch of stylesheets (and in order to parameterize it), I chose to set the size here and slap on `!important`.
+The partial injecting the Javascript and CSS lives at `/layouts/partials/prismjs-injection.html`. The partial that actually constructs code blocks lives at `/layouts/partials/highlight.html`.
 
-I also chose to inject the Javascript here, figuring it would cut down on repainting highlighted text over the original input.
+There are two shortcodes living at `/layouts/shortcodes/`. The `highlight` shortcode expects a labeled, code fenced block such as:
 
-```go
-{{ $theme := site.Params.prismjs_theme | default "moondeer" }}
-<link rel="stylesheet" href="/assets/css/prism-{{ $theme }}.css">
-<script src="/assets/js/prism.js"></script>
-{{ $font_size := site.Params.prismjs_font_size | default "0.5rem" }}
-<style>code[class*=language-],pre[class*=language-] { font-size: {{ $font_size }} !important; }</style>
-```
+![Code Fence](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/code_fence.jpeg)
 
-Lastly, the `Line Numbers` parameter. This parameter only makes since for one reason … the cool f$&king shortcode I layed in there. It lives at `layouts/shortcodes/language.html`.
+The `language` shortcode expects a generic code block (such as [Ulysses](https://ulysses.app "Ulysses") might generate) with the grammar passed as a named parameter, kinda like:
 
-```go
-{{- $language := false -}}
-{{- if (and (and .IsNamedParams (.Get "language")) .Inner) -}}
-  {{- $language = .Get "language" -}}
-{{- else if (and (.Get 0) .Inner) -}}
-  {{- $language = .Get 0 -}}
-{{- end -}}
+ ![Language Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/language_example.jpeg)
 
-{{ if $language }}
+Let’s go through the plugins I’ve chosen to include.
 
-{{- $code := .Inner | markdownify | chomp -}}
+## Plugins
 
-{{- if hasPrefix $code "<pre><code>" -}}
+**[Autoloader](https://prismjs.com/plugins/autoloader/ "Autoloader")**: This plugin dynamically loads required grammars from `/static/assets/js/components/`.
 
-{{- $code = strings.TrimPrefix "<pre><code>" $code | strings.TrimSuffix "</code></pre>" -}}
-{{- $code = htmlUnescape $code -}}
-{{- $code = replaceRE "<" "&lt;" $code -}}
-{{- $code = replaceRE "&" "&amp;" $code -}}
+**[Unescaped Markup](https://prismjs.com/plugins/unescaped-markup/ "Unescaped Markup")**: This plugin enables the use of a `<script>` tag in place of `<pre><code>` for blocks of code. This is utilized by `/layouts/partials/highlight.html`.
 
-{{- $pre_class := "code-block" -}}
-{{- if (and .IsNamedParams (.Get "line-numbers")) -}}
-  {{- $pre_class = printf "%s line-numbers" $pre_class -}}
-{{ else if (and (not .IsNamedParams) (and site.Params.prismjs_line_numbers (eq "true" site.Params.prismjs_line_numbers))) }}
-  {{- $pre_class = printf "%s line-numbers" $pre_class -}}
-{{- end -}}
+**[Line Numbers](https://prismjs.com/plugins/line-numbers/ "Line Numbers")**: This plugin enables the display of a gutter full of line numbers for blocks of code.
 
-<pre class="{{ $pre_class }}"><code class="language-{{ $language }}">
-{{ printf "%s" $code | htmlUnescape | safeHTML }}
-</code></pre>
+![Line Numbers Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/line_numbers_normalized_whitespace.jpeg)
 
+I have noticed that the line number appearance can be kinda spotty as far as alignment. The problem seems to lie somewhere in the CSS. The HTML DOM contains the correct number of generated `<span>` tags to represent the lines.
 
-{{ else if hasPrefix $code "<code>" }}
+**[Highlight Keywords](https://prismjs.com/plugins/highlight-keywords/ "Highlight Keywords")**: This plugin appends class names with more specificity for keyword tokens.
 
-{{ $code = strings.TrimPrefix "<code>" $code | strings.TrimSuffix "</code>" }}
+**[Keep Markup](https://prismjs.com/plugins/keep-markup/ "Keep Markup")**: This plugin allows for the preservation of `<mark>` tags within the highlighted code.
 
-{{ $code = htmlUnescape $code }}
+![Code for Keep Markup Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/code_for_keep_markup.jpeg)
 
-{{ $code = replaceRE "<" "&lt;" $code }}
-{{ $code = replaceRE "&" "&amp;" $code }}
+![Keep Markup Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/keep_markup.jpeg)
 
-<code class="language-{{ $language }}">
-{{ printf "%s" $code | htmlUnescape | safeHTML }}
-</code>
+**[Normalize Whitespace](https://prismjs.com/plugins/normalize-whitespace/ "Normalize Whitespace")**: This plugin helps wrangle whitespace for blocks of code.
 
-{{ end }}
+<figure>
+![Without Normalization](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/line_numbers_preserved_whitespace.jpeg)
+<figcaption>With Whitespace Preserved</figcaption>
+</figure>
 
-{{ end }}
-```
+<figure>
+![Without Normalization](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/line_numbers_normalized_whitespace.jpeg)
+<figcaption>With Whitespace Normalized</figcaption>
+</figure>
 
-The paired shortcode works with either a single, unnamed parameter specifying the language … kinda like…
+**[Toolbar](https://prismjs.com/plugins/toolbar/ "Toolbar")**: This plugin attaches a toolbar to be utilized by other plugins. The plugins that follow depend upon it.
 
-```go
-{{< language json >}}
-	{
-	  "currentlyreading": "*Books I am somewhat in the process of reading*",
-	  "finishedreading": "*Books I've managed to get myself to read*",
-	  "wanttoread": "*Books that gaze at me judingly from beneath the television, where they currently live, for having yet to crack their spine (f$&kers).*",
-	  "didwanttoread": "*Books whose gaze of judgement I've kinda become okay with as my interest in reading them has waned.*"
-	}
-{{< /language >}}
-```
+**[Show Language](https://prismjs.com/plugins/show-language/ "Show Language")**: This plugin sticks an item in the toolbar with the name of the grammar being highlighted.
 
-or with named parameters … one mandatory and one optional. The mandatory named parameter is `language` and the optional parameter is `line-numbers`. This might look something like…
+![Show Language](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/show_language.jpeg)
 
-```go
-{{< language language="json " line-numbers="true" >}}
-	{
-	  "currentlyreading": "*Books I am somewhat in the process of reading*",
-	  "finishedreading": "*Books I've managed to get myself to read*",
-	  "wanttoread": "*Books that gaze at me judingly from beneath the television, where they currently live, for having yet to crack their spine (f$&kers).*",
-	  "didwanttoread": "*Books whose gaze of judgement I've kinda become okay with as my interest in reading them has waned.*"
-	}
-{{< /language >}}
-```
+**[Copy to Clipboard Button](https://prismjs.com/plugins/copy-to-clipboard/ "Copy to Clipboard Button")**: This plugin sticks a button in the toolbar for copying the highlighted text onto the clipboard.
 
-The `Line Numbers` plugin parameter contols shortcode behaviour when left unspecified. This value defaults to `false`. If you set it to `"true"`, than invoking the unnamed parameter shortcode would result in a code block decorated with line numbers. The value set (or not set) for `Line Numbers` also controls the inclusion of line numbers when the named parameter `language` is used without supplying a `line-numbers` parameter to the shortcode. Supplying the value `"true"` for `line-numbers` oughta enable line numbers for a block of code being sent through the shortcode. And with that, the over-explanation of the `Line Numbers` parameter is complete.
+![Copy to Clipboard Button](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/copy_to_clipboard_button.jpeg)
 
-Like nearly all my shortcodes these days, I created it as bridge between [Ulysses](https://ulysses.app/ "Ulysses") and my Micro.blog content. So, I can be all working up a sheet in Ulysses, and be all:
+That’s a wrap on the Prism plugins. Let’s check out the plugin parameters, shall we?
 
-![](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/ulysses.jpeg)
+## Parameters
 
-and then it comes out the other side all:
+![](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/plugin_parameters.jpeg)
 
-![](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/json_grammar.jpeg)
+Alrighty, first up is the `PrismJS Theme`. I rolled my own `darcula`-esque them and named it `moondeer`. This is the theme I’ve been using in the screenshots and what you get by default. I included the stylesheets for all the themes that were available on the download page as well. If you want to play around with the themes, these would be the supported parameter values: `moondeer`, `default`, `dark`, `coy`, `funky`, `okaidia`, `solarized-light`, `twilight`, `tomorrow-night`.
 
+The `Font Size` parameter gets inserted into the partial injected into the page `<head>`. Rather than maintain a bunch of stylesheets (and in order to parameterize it), I chose to set the size here and slap on `!important`.
+
+The `Minify` parameter determines whether linked scripts and stylesheets will be the developer or minified versions.
+
+The `Line Numbers` parameter controls whether code blocks come with or without line numbers by default when using the shortcodes without passing a `line-numbers` parameter.
+
+The `Enable Toolbar` parameter controls whether the toolbar plugin gets loaded.
+
+The `Soft Wrap` parameter controls whether code blocks should wrap long lines.
+
+<figure>
+![Without Soft Wrap](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/no_wrap.jpeg)
+<figcaption>Without Soft Wrap</figcaption>
+</figure>
+
+<figure>
+![Without Soft Wrap](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/soft_wrap.jpeg)
+<figcaption>With Soft Wrap</figcaption>
+</figure>
+
+The `Show Language` parameter controls whether the plugin for the language toolbar item gets loaded.
+
+The `Copy Button` parameter controls whether the plugin for the copy-to-clipboard-button toolbar item gets loaded.
+
+The `Preserve Whitespace` parameter controls whether whitespace normalization is turned off by default when using the shortcodes.
+
+The `Whitespace Settings` parameter enables customization over the [whitespace normalization plugin](https://prismjs.com/plugins/normalize-whitespace/ "Normalize Whitespace"). If used, the value should be a JSON object (that gets persisted as a string).
+
+The `Keep Markup` parameter controls whether those `<mark>` tags are preserved by default. This currently serves no purpose as the shortcodes mangled the tags when I tried running some through. Hardcoding the tags rather than using a shortcode (as shown up top) does work properly.
+
+## Shortcode Parameters
+
+### `highlight`
+#### All parameters are optional
+
+`line-numbers`: `"true"` to generate line numbers
+
+`preserve-whitespace`: `"true"` to turn off whitespace normalization
+
+`keep_markup`: `"true"` to preserve `<mark>` tags (**broken**)
+
+`data-language`:  Used to display a specific label whether it has been defined as a language or not
+
+<figure>
+![Without Data Language](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/without_data_language.jpeg)
+<figcaption>Without Setting data-language</figcaption>
+</figure>
+
+<figure>
+![With Data Language](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/with_data_language.jpeg)
+<figcaption>Withdata-language Set to "Hugo"</figcaption>
+</figure>
+
+`dependencies`: A list of comma-separated language aliases for additional grammars to load
+
+<figure>
+![Without Dependency](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/without_dependency.jpeg)
+<figcaption>Pug Without Less Dependency</figcaption>
+</figure>
+
+<figure>
+![With Dependency](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/with_dependency.jpeg)
+<figcaption>Pug With Less Dependency</figcaption>
+</figure>
+
+## Bugs
 It’s worth noting that I believe I have found a mobile Safari bug that affects the font-size of the highlighted text on an iPhone when in portrait. Your mileage may vary; but, [this](https://moondeer.blog/2021/10/30/okay-fk-it.html "iPhone Portrait Bug") was my experience.
