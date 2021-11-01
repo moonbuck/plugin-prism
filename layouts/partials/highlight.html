@@ -18,6 +18,8 @@
 
 {{ $code = $code | strings.TrimSuffix $fence_close }}
 
+{{ $code = $code | replaceRE "@@" "@" }}
+
 {{ $class := printf "code-block language-%s" $language }}
 {{ if (and .line_numbers (eq .line_numbers "true")) }}
 {{ $class = printf "%s line-numbers" $class }}
