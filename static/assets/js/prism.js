@@ -1,5 +1,5 @@
 /* PrismJS 1.25.0
-https://prismjs.com/download.html#themes=prism&plugins=line-numbers+custom-class+show-language+autoloader+unescaped-markup+normalize-whitespace+toolbar+copy-to-clipboard+download-button */
+https://prismjs.com/download.html#themes=prism&plugins=line-numbers+custom-class+show-language+highlight-keywords+autoloader+keep-markup+unescaped-markup+normalize-whitespace+toolbar+copy-to-clipboard */
 /// <reference lib="WebWorker"/>
 
 var _self = (typeof window !== 'undefined')
@@ -2086,6 +2086,21 @@ if (typeof global !== 'undefined') {
 
 (function () {
 
+	if (typeof Prism === 'undefined') {
+		return;
+	}
+
+	Prism.hooks.add('wrap', function (env) {
+		if (env.type !== 'keyword') {
+			return;
+		}
+		env.classes.push('keyword-' + env.content);
+	});
+
+}());
+
+(function () {
+
 	if (typeof Prism === 'undefined' || typeof document === 'undefined') {
 		return;
 	}
@@ -2356,7 +2371,7 @@ if (typeof global !== 'undefined') {
 	var lang_data = {};
 
 	var ignored_language = 'none';
-	var languages_path = '/assets/js/components/';
+	var languages_path = 'components/';
 
 	var script = Prism.util.currentScript();
 	if (script) {
@@ -2602,6 +2617,110 @@ if (typeof global !== 'undefined') {
 		}
 	});
 
+}());
+
+(function () {
+
+	if (typeof Prism === 'undefined' || typeof document === 'undefined' || !document.createRange) {
+		return;
+	}
+
+	Prism.plugins.KeepMarkup = true;
+
+	Prism.hooks.add('before-highlight', function (env) {
+		if (!env.element.children.length) {
+			return;
+		}
+
+		if (!Prism.util.isActive(env.element, 'keep-markup', true)) {
+			return;
+		}
+
+		var pos = 0;
+		var data = [];
+		var f = function (elt, baseNode) {
+			var o = {};
+			if (!baseNode) {
+				// Clone the original tag to keep all attributes
+				o.clone = elt.cloneNode(false);
+				o.posOpen = pos;
+				data.push(o);
+			}
+			for (var i = 0, l = elt.childNodes.length; i < l; i++) {
+				var child = elt.childNodes[i];
+				if (child.nodeType === 1) { // element
+					f(child);
+				} else if (child.nodeType === 3) { // text
+					pos += child.data.length;
+				}
+			}
+			if (!baseNode) {
+				o.posClose = pos;
+			}
+		};
+		f(env.element, true);
+
+		if (data && data.length) {
+			// data is an array of all existing tags
+			env.keepMarkup = data;
+		}
+	});
+
+	Prism.hooks.add('after-highlight', function (env) {
+		if (env.keepMarkup && env.keepMarkup.length) {
+
+			var walk = function (elt, nodeState) {
+				for (var i = 0, l = elt.childNodes.length; i < l; i++) {
+
+					var child = elt.childNodes[i];
+
+					if (child.nodeType === 1) { // element
+						if (!walk(child, nodeState)) {
+							return false;
+						}
+
+					} else if (child.nodeType === 3) { // text
+						if (!nodeState.nodeStart && nodeState.pos + child.data.length > nodeState.node.posOpen) {
+							// We found the start position
+							nodeState.nodeStart = child;
+							nodeState.nodeStartPos = nodeState.node.posOpen - nodeState.pos;
+						}
+						if (nodeState.nodeStart && nodeState.pos + child.data.length >= nodeState.node.posClose) {
+							// We found the end position
+							nodeState.nodeEnd = child;
+							nodeState.nodeEndPos = nodeState.node.posClose - nodeState.pos;
+						}
+
+						nodeState.pos += child.data.length;
+					}
+
+					if (nodeState.nodeStart && nodeState.nodeEnd) {
+						// Select the range and wrap it with the clone
+						var range = document.createRange();
+						range.setStart(nodeState.nodeStart, nodeState.nodeStartPos);
+						range.setEnd(nodeState.nodeEnd, nodeState.nodeEndPos);
+						nodeState.node.clone.appendChild(range.extractContents());
+						range.insertNode(nodeState.node.clone);
+						range.detach();
+
+						// Process is over
+						return false;
+					}
+				}
+				return true;
+			};
+
+			// For each tag, we walk the DOM to reinsert it
+			env.keepMarkup.forEach(function (node) {
+				walk(env.element, {
+					node: node,
+					pos: 0
+				});
+			});
+			// Store new highlightedCode for later hooks calls
+			env.highlightedCode = env.element.innerHTML;
+		}
+	});
 }());
 
 (function () {
@@ -3025,26 +3144,5 @@ if (typeof global !== 'undefined') {
 			linkCopy.setAttribute('data-copy-state', state);
 		}
 	});
-}());
-
-(function () {
-
-	if (typeof Prism === 'undefined' || typeof document === 'undefined' || !document.querySelector) {
-		return;
-	}
-
-	Prism.plugins.toolbar.registerButton('download-file', function (env) {
-		var pre = env.element.parentNode;
-		if (!pre || !/pre/i.test(pre.nodeName) || !pre.hasAttribute('data-src') || !pre.hasAttribute('data-download-link')) {
-			return;
-		}
-		var src = pre.getAttribute('data-src');
-		var a = document.createElement('a');
-		a.textContent = pre.getAttribute('data-download-link-label') || 'Download';
-		a.setAttribute('download', '');
-		a.href = src;
-		return a;
-	});
-
 }());
 

@@ -1,5 +1,5 @@
 {
-    "version": "5.0.0",
+    "version": "6.0.0",
     "title": "Moondeer's Prism",
     "description": "A plugin for injecting Prism for syntax highlighting.",
     "includes": [
@@ -28,9 +28,48 @@
           "placeholder": "false"
         },
         {
+          "field": "params.prismjs_enable_toolbar",
+          "label": "Enable Toolbar",
+          "placeholder": "true"
+        },
+        {
           "field": "params.prismjs_soft_wrap",
           "label": "Soft Wrap",
           "placeholder": "true"
+        },
+        {
+          "field": "params.prismjs_show_language",
+          "label": "Show Language",
+          "placeholder": "true"
+        },
+        {
+          "field": "params.prismjs_copy_button",
+          "label": "Copy Button",
+          "placeholder": "true"
+        },
+        {
+          "field": "params.prismjs_preserve_whitespace",
+          "label": "Preserve Whitespace",
+          "placeholder": "false"
+        },
+        {
+          "field": "params.prismjs_whitespace_settings_json",
+          "label": "Whitespace Settings",
+          "placeholder": "{}"
+        },
+        {
+          "field": "params.prismjs_keep_markup",
+          "label": "Keep Markup",
+          "placeholder": "true"
+        },
+        {
+          "field": "params.prismjs_class_prefix",
+          "label": "Class Prefix",
+          "placeholder": "prism--"
+        },
+        {
+          "field": "params.prismjs_class_map",
+          "label": "Class Map",
+          "placeholder": "{}"
         }
-      ]
   }

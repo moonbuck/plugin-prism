@@ -25,6 +25,18 @@
 {{ $class = printf "%s line-numbers" $class }}
 {{ end }}
 
+{{ if (or (and .preserve_whitespace (eq .preserve_whitespace "true")) (and site.Params.prismjs_preserve_whitespace (eq site.Params.prismjs_preserve_whitespace "true"))) }}
+{{ $class = printf "%s no-whitespace-normalization" $class }}
+{{ end }}
+
+{{ if (or (and .keep_markup (eq .keep_markup "false")) (and site.Params.prismjs_keep_markup (eq site.Params.prismjs_keep_markup "false"))) }}
+{{ $class = printf "%s no-keep-markup" $class }}
+{{ end }}
+
+{{ with .data_language }}
+{{ $class = printf "%s %s" $class . }}
+{{ end }}
+
 {{ printf "<script type='text/plain' class='%s'>\n%s\n</script>" $class (htmlUnescape $code) | safeHTML }}
 
 {{ end }}
