@@ -65,6 +65,6 @@
 
 {{/* Determine whether to soft-wrap code */}}
 {{ if not (and (site.Params.prismjs_soft_wrap) (eq site.Params.prismjs_soft_wrap "false")) }}
-<style>pre.code-block{white-space:pre-wrap}</style>
+<style>code[class*=language-],pre[class*=language-]{white-space:pre-wrap!important}</style>
 {{ end }}
 

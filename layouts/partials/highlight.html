@@ -35,12 +35,21 @@
 {{ $class = printf "%s no-keep-markup" $class }}
 {{ end }}
 
+{{ $attributes := "" }}
 {{ with .data_language }}
-{{ $class = printf "%s %s" $class . }}
+{{ $attributes = printf "data-language='%s'" . }}
 {{ end }}
 
 {{ with .dependencies }}
-{{ printf "<script type='text/plain' class='%s' data-dependencies='%s'>\n%s\n</script>" $class . (htmlUnescape $code) | safeHTML }}
+{{ if $attributes }}
+{{ $attributes = printf "%s data-dependencies='%s'" $attributes . }}
+{{ else }}
+{{ $attributes = printf "data-dependencies='%s'" . }}
+{{ end }}
+{{ end }}
+
+{{ with $attributes }}
+{{ printf "<script type='text/plain' class='%s' %s>\n%s\n</script>" $class . (htmlUnescape $code) | safeHTML }}
 {{ else }}
 {{ printf "<script type='text/plain' class='%s'>\n%s\n</script>" $class (htmlUnescape $code) | safeHTML }}
 {{ end }}
