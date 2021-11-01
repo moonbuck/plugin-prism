@@ -51,12 +51,12 @@ I have noticed that the line number appearance can be kinda spotty as far as ali
 **[Normalize Whitespace](https://prismjs.com/plugins/normalize-whitespace/ "Normalize Whitespace")**: This plugin helps wrangle whitespace for blocks of code.
 
 <figure>
-![Without Normalization](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/line_numbers_preserved_whitespace.jpeg)
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/line_numbers_preserved_whitespace.jpeg" />
 <figcaption>With Whitespace Preserved</figcaption>
 </figure>
 
 <figure>
-![Without Normalization](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/line_numbers_normalized_whitespace.jpeg)
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/line_numbers_normalized_whitespace.jpeg" />
 <figcaption>With Whitespace Normalized</figcaption>
 </figure>
 
@@ -122,24 +122,24 @@ The `Keep Markup` parameter controls whether those `<mark>` tags are preserved b
 `data-language`:  Used to display a specific label whether it has been defined as a language or not
 
 <figure>
-![Without Data Language](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/without_data_language.jpeg)
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/without_data_language.jpeg" />
 <figcaption>Without Setting data-language</figcaption>
 </figure>
 
 <figure>
-![With Data Language](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/with_data_language.jpeg)
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/with_data_language.jpeg" />
 <figcaption>Withdata-language Set to "Hugo"</figcaption>
 </figure>
 
 `dependencies`: A list of comma-separated language aliases for additional grammars to load
 
 <figure>
-![Without Dependency](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/without_dependency.jpeg)
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/without_dependency.jpeg" />
 <figcaption>Pug Without Less Dependency</figcaption>
 </figure>
 
 <figure>
-![With Dependency](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/with_dependency.jpeg)
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/with_dependency.jpeg" />
 <figcaption>Pug With Less Dependency</figcaption>
 </figure>
 
