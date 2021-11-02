@@ -6,7 +6,7 @@ Prism looks for `<code class="language-xxx">` tags for inline syntax highlightin
 
 For example, the opening tags for the following would be `<pre><code class="language-pug">`:
 
-![Simple Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/no_line_numbers.jpeg)
+![Simple Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/no_line_numbers.jpeg)
 
 ## Plugin Structure
 
@@ -18,11 +18,11 @@ The partial injecting the Javascript and CSS lives at `/layouts/partials/prismjs
 
 There are two shortcodes living at `/layouts/shortcodes/`. The `highlight` shortcode optionally accepts the named parameters listed farther down and expects a labeled, code fenced block such as:
 
-![Code Fence](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/code_fence.jpeg)
+![Code Fence](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/code_fence.jpeg)
 
 The `language` shortcode expects a generic code block (such as [Ulysses](https://ulysses.app "Ulysses") might generate) with the grammar passed as a positional parameter, kinda like:
 
- ![Language Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/language_example.jpeg)
+ ![Language Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/language_example.jpeg)
  
 or with any of the optional named parameters listed further down with the addition of the mandatory `language` parameter.
 
@@ -36,7 +36,7 @@ Let’s go through the plugins I’ve chosen to include.
 
 **[Line Numbers](https://prismjs.com/plugins/line-numbers/ "Line Numbers")**: This plugin enables the display of a gutter full of line numbers for blocks of code.
 
-![Line Numbers Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/line_numbers_normalized_whitespace.jpeg)
+![Line Numbers Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/line_numbers_normalized_whitespace.jpeg)
 
 I have noticed that the line number appearance can be kinda spotty as far as alignment. The problem seems to lie somewhere in the CSS. The HTML DOM contains the correct number of generated `<span>` tags to represent the lines.
 
@@ -44,37 +44,37 @@ I have noticed that the line number appearance can be kinda spotty as far as ali
 
 **[Keep Markup](https://prismjs.com/plugins/keep-markup/ "Keep Markup")**: This plugin allows for the preservation of `<mark>` tags within the highlighted code.
 
-![Code for Keep Markup Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/code_for_keep_markup.jpeg)
+![Code for Keep Markup Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/code_for_keep_markup.jpeg)
 
-![Keep Markup Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/keep_markup.jpeg)
+![Keep Markup Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/keep_markup.jpeg)
 
 **[Normalize Whitespace](https://prismjs.com/plugins/normalize-whitespace/ "Normalize Whitespace")**: This plugin helps wrangle whitespace for blocks of code.
 
 <figure>
 <figcaption><i><b>With Whitespace Preserved</b></i></figcaption>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/line_numbers_preserved_whitespace.jpeg" />
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/line_numbers_preserved_whitespace.jpeg" />
 </figure>
 
 <figure>
 <figcaption><i><b>With Whitespace Normalized</b></i></figcaption>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/line_numbers_normalized_whitespace.jpeg" />
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/line_numbers_normalized_whitespace.jpeg" />
 </figure>
 
 **[Toolbar](https://prismjs.com/plugins/toolbar/ "Toolbar")**: This plugin attaches a toolbar to be utilized by other plugins. The plugins that follow depend upon it.
 
 **[Show Language](https://prismjs.com/plugins/show-language/ "Show Language")**: This plugin sticks an item in the toolbar with the name of the grammar being highlighted.
 
-![Show Language](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/show_language.jpeg)
+![Show Language](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/show_language.jpeg)
 
 **[Copy to Clipboard Button](https://prismjs.com/plugins/copy-to-clipboard/ "Copy to Clipboard Button")**: This plugin sticks a button in the toolbar for copying the highlighted text onto the clipboard.
 
-![Copy to Clipboard Button](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/copy_to_clipboard_button.jpeg)
+![Copy to Clipboard Button](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/copy_to_clipboard_button.jpeg)
 
 That’s a wrap on the Prism plugins. Let’s check out the plugin parameters, shall we?
 
 ## Parameters
 
-![](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/plugin_parameters.jpeg)
+![](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/plugin_parameters.jpeg)
 
 Alrighty, first up is the `PrismJS Theme`. I rolled my own `darcula`-esque them and named it `moondeer`. This is the theme I’ve been using in the screenshots and what you get by default. I included the stylesheets for all the themes that were available on the download page as well. If you want to play around with the themes, these would be the supported parameter values: `moondeer`, `default`, `dark`, `coy`, `funky`, `okaidia`, `solarized-light`, `twilight`, `tomorrow-night`.
 
@@ -90,12 +90,12 @@ The `Soft Wrap` parameter controls whether code blocks should wrap long lines.
 
 <figure>
 <figcaption><i><b>Without Soft Wrap</b></i></figcaption>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/no_wrap.jpeg" />
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/no_wrap.jpeg" />
 </figure>
 
 <figure>
 <figcaption><i><b>With Soft Wrap</b></i></figcaption>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/soft_wrap.jpeg" />
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/soft_wrap.jpeg" />
 </figure>
 
 The `Show Language` parameter controls whether the plugin for the language toolbar item gets loaded.
@@ -123,24 +123,24 @@ The `Keep Markup` parameter controls whether those `<mark>` tags are preserved b
 
 <figure>
 <figcaption><i><b>Without Setting <code>data-language</code></b></i></figcaption>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/without_data_language.jpeg" />
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/without_data_language.jpeg" />
 </figure>
 
 <figure>
 <figcaption><i><b>With <code>data-language</code> Set to "Hugo"</b></i></figcaption>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/with_data_language.jpeg" />
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/with_data_language.jpeg" />
 </figure>
 
 `dependencies`: A list of comma-separated language aliases for additional grammars to load
 
 <figure>
 <figcaption><i><b>Pug Without Less Dependency</b></i></figcaption>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/without_dependency.jpeg" />
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/without_dependency.jpeg" />
 </figure>
 
 <figure>
 <figcaption><i><b>Pug With Less Dependency</b></i></figcaption>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/with_dependency.jpeg" />
+<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/with_dependency.jpeg" />
 </figure>
 
 `soft-wrap`: Specify soft wrap just for this code block
