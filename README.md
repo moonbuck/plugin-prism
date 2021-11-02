@@ -16,7 +16,7 @@ The stylesheet living at `static/assets/css/prism.css` addresses a line-number s
 
 The partial injecting the Javascript and CSS lives at `/layouts/partials/prismjs-injection.html`. The partial that actually constructs code blocks lives at `/layouts/partials/highlight.html`.
 
-There are two shortcodes living at `/layouts/shortcodes/`. The `highlight` shortcode expects a labeled, code fenced block such as:
+There are two shortcodes living at `/layouts/shortcodes/`. The `highlight` shortcode optionally accepts the named parameters listed farther down and expects a labeled, code fenced block such as:
 
 ![Code Fence](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/code_fence.jpeg)
 
@@ -24,7 +24,7 @@ The `language` shortcode expects a generic code block (such as [Ulysses](https:/
 
  ![Language Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/language_example.jpeg)
  
-or with named parameters mirroring those taken by `highlight` with the addition of the mandatory `language` parameter.
+or with any of the optional named parameters listed further down with the addition of the mandatory `language` parameter.
 
 Let’s go through the plugins I’ve chosen to include.
 
@@ -142,6 +142,8 @@ The `Keep Markup` parameter controls whether those `<mark>` tags are preserved b
 <figcaption><i><b>Pug With Less Dependency</b></i></figcaption>
 <img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/with_dependency.jpeg" />
 </figure>
+
+`soft-wrap`: Specify soft wrap just for this code block
 
 ## Bugs
 It’s worth noting that I believe I have found a mobile Safari bug that affects the font-size of the highlighted text on an iPhone when in portrait. Your mileage may vary; but, [this](https://moondeer.blog/2021/10/30/okay-fk-it.html "iPhone Portrait Bug") was my experience.
