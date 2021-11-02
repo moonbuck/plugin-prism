@@ -1,4 +1,4 @@
-# plugin-prismjs
+# plugin-prismjs (A README Experience)
 
 A plugin for [Micro.blog](https://micro.blog "Micro.blog") that injects [Prism](https://prismjs.com/ "Prism") Javascript and CSS stylesheets to enable syntax highlighting for a sh$t ton of grammars within inline `<code>` tags and `<pre><code>` combination code blocks.
 
@@ -23,7 +23,7 @@ There are two shortcodes living at `/layouts/shortcodes/`. The `highlight` short
 The `language` shortcode expects a generic code block (such as [Ulysses](https://ulysses.app "Ulysses") might generate) with the grammar passed as a positional parameter, kinda like:
 
  ![Language Example](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/language_example.jpeg)
- 
+
 or with any of the optional named parameters listed further down with the addition of the mandatory `language` parameter.
 
 Let’s go through the plugins I’ve chosen to include.
@@ -50,15 +50,9 @@ I have noticed that the line number appearance can be kinda spotty as far as ali
 
 **[Normalize Whitespace](https://prismjs.com/plugins/normalize-whitespace/ "Normalize Whitespace")**: This plugin helps wrangle whitespace for blocks of code.
 
-<figure>
-<figcaption><i><b>With Whitespace Preserved</b></i></figcaption>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/line_numbers_preserved_whitespace.jpeg" />
-</figure>
+![Without Whitespace Preserved](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/line_numbers_preserved_whitespace.jpeg)
 
-<figure>
-<figcaption><i><b>With Whitespace Normalized</b></i></figcaption>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/line_numbers_normalized_whitespace.jpeg" />
-</figure>
+![With Whitespace Normalized](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/line_numbers_normalized_whitespace.jpeg)
 
 **[Toolbar](https://prismjs.com/plugins/toolbar/ "Toolbar")**: This plugin attaches a toolbar to be utilized by other plugins. The plugins that follow depend upon it.
 
@@ -88,15 +82,9 @@ The `Enable Toolbar` parameter controls whether the toolbar plugin gets loaded.
 
 The `Soft Wrap` parameter controls whether code blocks should wrap long lines.
 
-<figure>
-<figcaption><i><b>Without Soft Wrap</b></i></figcaption>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/no_wrap.jpeg" />
-</figure>
+![Without Soft Wrap](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/no_wrap.jpeg)
 
-<figure>
-<figcaption><i><b>With Soft Wrap</b></i></figcaption>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/soft_wrap.jpeg" />
-</figure>
+![With Soft Wrap](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/soft_wrap.jpeg)
 
 The `Show Language` parameter controls whether the plugin for the language toolbar item gets loaded.
 
@@ -108,10 +96,7 @@ The `Whitespace Settings` parameter enables customization over the [whitespace n
 
 The `Keep Markup` parameter controls whether those `<mark>` tags are preserved by default. This currently serves no purpose as the shortcodes mangled the tags when I tried running some through. Hardcoding the tags rather than using a shortcode (as shown up top) does work properly.
 
-## Shortcode Parameters
-
-### `highlight`
-#### All parameters are optional
+## Named Shortcode Parameters
 
 `line-numbers`: `"true"` to generate line numbers
 
@@ -121,29 +106,55 @@ The `Keep Markup` parameter controls whether those `<mark>` tags are preserved b
 
 `data-language`:  Used to display a specific label whether it has been defined as a language or not
 
-<figure>
-<figcaption><i><b>Without Setting <code>data-language</code></b></i></figcaption>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/without_data_language.jpeg" />
-</figure>
+![Without Setting \`data-language\`](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/without_data_language.jpeg)
 
-<figure>
-<figcaption><i><b>With <code>data-language</code> Set to "Hugo"</b></i></figcaption>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/with_data_language.jpeg" />
-</figure>
+![With \`data-language\` Set to "Hugo"](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/with_data_language.jpeg)
 
 `dependencies`: A list of comma-separated language aliases for additional grammars to load
 
-<figure>
-<figcaption><i><b>Pug Without Less Dependency</b></i></figcaption>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/without_dependency.jpeg" />
-</figure>
+![Pug Without Less Dependency](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/without_dependency.jpeg)
 
-<figure>
-<figcaption><i><b>Pug With Less Dependency</b></i></figcaption>
-<img src="https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/with_dependency.jpeg" />
-</figure>
+![Pug With Less Dependency](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/with_dependency.jpeg)
 
 `soft-wrap`: Specify soft wrap just for this code block
 
+## Tricky Sh$t
+
+At times you will need to escape certain characters in the code being highlighted in order to get it to play nice with all the processing. Take the simple chunk of Pug code I’ve been using, for example. If you enter it into a post as is, kinda like:
+
+![](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/at_unescaped.jpeg)
+
+You might be surprised by what you end up with, which is this:
+
+![Unexpected Result](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/unescaped_at.jpeg)
+
+If, however, we escape the `@` before it is process my Micro.blog:
+
+![](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/at_escaped.jpeg)
+
+Then, we get the proper result:
+
+![Proper Result](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/with_dependency.jpeg)
+
 ## Bugs
-It’s worth noting that I believe I have found a mobile Safari bug that affects the font-size of the highlighted text on an iPhone when in portrait. Your mileage may vary; but, [this](https://moondeer.blog/2021/10/30/okay-fk-it.html "iPhone Portrait Bug") was my experience.
+
+Some sh$t simply won’t work. So far I’ve had one chunk of code that I couldn’t get through Hugo (or at least through version 0.54 of Hugo):
+
+![Troublesome Code](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/troublesome_code.jpeg)
+
+Sending it through as is, with instances of `{` replaced by `&#123;`, and with instances of `$` replaced by `&#36;` all lead me to this error message:
+
+![First Error](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/error_one.jpeg)
+
+Taking it a step further and replacing all instances of `&#36;` with `&amp;#36;` leads me to this error message:
+
+![Second Error](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/error_two.jpeg)
+
+So if y’all know why Hugo insists on unmarshalling some f$&king YAML, do share.
+
+
+It’s worth noting that I believe I have found a mobile Safari bug that affects the font-size of the highlighted text on an iPhone when in portrait. 
+
+![iPhone Portrait Bug](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/iphone_portrait.jpeg)
+
+Your mileage may vary; but, [this](https://moondeer.blog/2021/10/30/okay-fk-it.html "iPhone Portrait Bug") was my experience.
