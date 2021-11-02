@@ -25,6 +25,7 @@
 {{ $close_tags = index $close_tags 0 }}
 
 {{ $code = $code | strings.TrimSuffix $close_tags }}
+{{ $code = $code | htmlUnescape }}
 
 {{ $inner := printf "```%s\n%s\n```" $language $code }}
 
