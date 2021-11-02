@@ -1,6 +1,6 @@
 # plugin-prismjs
 
-A plugin for [Micro.blog](https://micro.blog "Micro.blog") that injects [Prism](https://prismjs.com/ "Prism") Javascript and CSS stylesheets to enable syntax highlighting for a sh$t ton of grammars within inline `<code>` tags and `<pre><code>` combination code blocks. Its code lives [here](https://github.com/moonbuck/plugin-prismjs "plugin-prismjs").
+A plugin for [Micro.blog](https://micro.blog "Micro.blog") that injects [Prism](https://prismjs.com/ "Prism") Javascript and CSS stylesheets to enable syntax highlighting for a sh$t ton of grammars within inline `<code>` tags and `<pre><code>` combination code blocks.
 
 Prism looks for `<code class="language-xxx">` tags for inline syntax highlighting and for `<pre><code class="language-xxx">` tags for syntax highlighting blocks of code.
 
