@@ -1,4 +1,4 @@
-# plugin-prismjs (A README Experience)
+# plugin-prismjs
 
 A plugin for [Micro.blog](https://micro.blog "Micro.blog") that injects [Prism](https://prismjs.com/ "Prism") Javascript and CSS stylesheets to enable syntax highlighting for a sh$t ton of grammars within inline `<code>` tags and `<pre><code>` combination code blocks.
 
