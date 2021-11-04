@@ -50,8 +50,10 @@ I have noticed that the line number appearance can be kinda spotty as far as ali
 
 **[Normalize Whitespace](https://prismjs.com/plugins/normalize-whitespace/ "Normalize Whitespace")**: This plugin helps wrangle whitespace for blocks of code.
 
-![Without Whitespace Preserved](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/line_numbers_preserved_whitespace.jpeg)
+*With whitespace preserved*
+![With Whitespace Preserved](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/line_numbers_preserved_whitespace.jpeg)
 
+*With whitespace normalized*
 ![With Whitespace Normalized](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/line_numbers_normalized_whitespace.jpeg)
 
 **[Toolbar](https://prismjs.com/plugins/toolbar/ "Toolbar")**: This plugin attaches a toolbar to be utilized by other plugins. The plugins that follow depend upon it.
@@ -82,8 +84,10 @@ The `Enable Toolbar` parameter controls whether the toolbar plugin gets loaded.
 
 The `Soft Wrap` parameter controls whether code blocks should wrap long lines.
 
+*Without soft wrap*
 ![Without Soft Wrap](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/no_wrap.jpeg)
 
+*With soft wrap*
 ![With Soft Wrap](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/soft_wrap.jpeg)
 
 The `Show Language` parameter controls whether the plugin for the language toolbar item gets loaded.
@@ -106,14 +110,18 @@ The `Keep Markup` parameter controls whether those `<mark>` tags are preserved b
 
 `data-language`:  Used to display a specific label whether it has been defined as a language or not
 
-![Without Setting \`data-language\`](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/without_data_language.jpeg)
+*Without Setting `data-language`*
+![Without Setting `data-language`](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/without_data_language.jpeg)
 
-![With \`data-language\` Set to "Hugo"](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/with_data_language.jpeg)
+*With `data-language` Set to "Hugo"*
+![With `data-language` Set to "Hugo"](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/with_data_language.jpeg)
 
 `dependencies`: A list of comma-separated language aliases for additional grammars to load
 
+*Pug Without Less Dependency*
 ![Pug Without Less Dependency](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/without_dependency.jpeg)
 
+*Pug With Less Dependency*
 ![Pug With Less Dependency](https://raw.githubusercontent.com/moonbuck/plugin-prismjs/main/images/with_dependency.jpeg)
 
 `soft-wrap`: Specify soft wrap just for this code block
