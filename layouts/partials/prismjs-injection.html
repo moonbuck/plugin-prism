@@ -1,70 +1,70 @@
-{{/* Determine the theme and resolve whether to use minified CSS and Javascript */}}
-{{ $theme := site.Params.prismjs_theme | default "moondeer" }}
-{{ $minify := true }}
-{{ if (and (site.Params.prismjs_minify) (eq site.Params.prismjs_minify "false")) }}
-{{ $minify = false }}
-{{ end }}
+{{- /* Determine the theme and resolve whether to use minified CSS and Javascript */}}
+{{- $theme := site.Params.prismjs_theme | default "moondeer" }}
+{{- $minify := true }}
+{{- if (and (site.Params.prismjs_minify) (eq site.Params.prismjs_minify "false")) }}
+{{- $minify = false }}
+{{- end }}
 
-{{/* Link the stylesheet for the theme */}}
+{{- /* Link the stylesheet for the theme */}}
 <link rel="stylesheet" href="/assets/css/themes/prism-{{ $theme }}{{ with $minify }}.min{{ end }}.css">
 
-{{/* Link the prism core Javascript */}}
+{{- /* Link the prism core Javascript */}}
 <script src="/assets/js/prism-core{{ with $minify }}.min{{ end }}.js"></script>
 
-{{/* Load the plugins separately to enable parameterization */}}
-{{ $plugin_dir := "/assets/js/plugins" }}
+{{- /* Load the plugins separately to enable parameterization */}}
+{{- $plugin_dir := "/assets/js/plugins" }}
 
-{{/* Load the autoloader plugin for dynamic grammar loading */}}
+{{- /* Load the autoloader plugin for dynamic grammar loading */}}
 <script src="{{ $plugin_dir }}/autoloader/prism-autoloader{{ with $minify }}.min{{ end }}.js"></script>
 
-{{/* Link unminified grammars when specified */}}
-{{ if not $minify }}<script>Prism.plugins.autoloader.use_minified = false;</script>{{ end }}
+{{- /* Link unminified grammars when specified */}}
+{{- if not $minify }}<script>Prism.plugins.autoloader.use_minified = false;</script>{{ end }}
 
-{{/* Link the unescaped-markup plugin leveraged by the partial */}}
+{{- /* Link the unescaped-markup plugin leveraged by the partial */}}
 <script src="{{ $plugin_dir }}/unescaped-markup/prism-unescaped-markup{{ with $minify }}.min{{ end }}.js"></script>
 <link rel="stylesheet" href="{{ $plugin_dir }}/unescaped-markup/prism-unescaped-markup{{ with $minify }}.min{{ end }}.css">
 
-{{/* Load the keep-markup plugin since it can be toggle via class names */}}
+{{- /* Load the keep-markup plugin since it can be toggle via class names */}}
 <script src="{{ $plugin_dir }}/keep-markup/prism-keep-markup{{ with $minify }}.min{{ end }}.js"></script>
 
-{{/* Load the normalize-whitespace plugin since it can be toggled by class name */}}
+{{- /* Load the normalize-whitespace plugin since it can be toggled by class name */}}
 <script src="{{ $plugin_dir }}/normalize-whitespace/prism-normalize-whitespace{{ with $minify }}.min{{ end }}.js"></script>
 
-{{/* Determine whether whitespace normalization should be customized */}}
-{{ with site.Params.prismjs_whitespace_settings_json }}<script>Prism.plugins.NormalizeWhitespace.setDefaults({{ . }});</script>{{ end }}
+{{- /* Determine whether whitespace normalization should be customized */}}
+{{- with site.Params.prismjs_whitespace_settings_json }}<script>Prism.plugins.NormalizeWhitespace.setDefaults({{ . }});</script>{{ end }}
 
-{{/* Load the highlight-keywords plugin for generating additional class names for keywords */}}
+{{- /* Load the highlight-keywords plugin for generating additional class names for keywords */}}
 <script src="{{ $plugin_dir }}/highlight-keywords/prism-highlight-keywords{{ with $minify }}.min{{ end }}.js"></script>
 
-{{/* Load the line-numbers plugin since it can be toggled by class name */}}
+{{- /* Load the line-numbers plugin since it can be toggled by class name */}}
 <script src="{{ $plugin_dir }}/line-numbers/prism-line-numbers{{ with $minify }}.min{{ end }}.js"></script>
 <link rel="stylesheet" href="{{ $plugin_dir }}/line-numbers/prism-line-numbers{{ with $minify }}.min{{ end }}.css">
 
-{{/* Check whether the toolbar should be enabled */}}
-{{ if not (and site.Params.prismjs_enable_toolbar (eq site.Params.prismjs_enable_toolbar "false")) }}
+{{- /* Check whether the toolbar should be enabled */}}
+{{- if not (and site.Params.prismjs_enable_toolbar (eq site.Params.prismjs_enable_toolbar "false")) }}
 
-{{/* Load the toolbar plugin before any plugin that utilizes it */}}
+{{- /* Load the toolbar plugin before any plugin that utilizes it */}}
 <script src="{{ $plugin_dir }}/toolbar/prism-toolbar{{ with $minify }}.min{{ end }}.js"></script>
 <link rel="stylesheet" href="{{ $plugin_dir }}/toolbar/prism-toolbar{{ with $minify }}.min{{ end }}.css">
 
-{{/* Determine whether the show-language plugin should load */}}
-{{ if not (and site.Params.prismjs_show_language (eq site.Params.prismjs_show_language "false")) }}
+{{- /* Determine whether the show-language plugin should load */}}
+{{- if not (and site.Params.prismjs_show_language (eq site.Params.prismjs_show_language "false")) }}
 <script src="{{ $plugin_dir }}/show-language/prism-show-language{{ with $minify }}.min{{ end }}.js"></script>
-{{ end }}
+{{- end }}
 
-{{/* Determine whether the copy-button plugin should load */}}
-{{ if not (and site.Params.prismjs_copy_button (eq site.Params.prismjs_copy_button "false")) }}
+{{- /* Determine whether the copy-button plugin should load */}}
+{{- if not (and site.Params.prismjs_copy_button (eq site.Params.prismjs_copy_button "false")) }}
 <script src="{{ $plugin_dir }}/copy-to-clipboard/prism-copy-to-clipboard{{ with $minify }}.min{{ end }}.js"></script>
-{{ end }}
+{{- end }}
 
-{{ end }}
+{{- end }}
 
-{{/* Inject a style tag enforcing the desired font size */}}
-{{ $font_size := site.Params.prismjs_font_size | default "0.5rem" }}
+{{- /* Inject a style tag enforcing the desired font size */}}
+{{- $font_size := site.Params.prismjs_font_size | default "0.5rem" }}
 <style>code[class*=language-],pre[class*=language-]{font-size:{{ $font_size }}!important}</style>
 
-{{/* Determine whether to soft-wrap code */}}
-{{ if not (and (site.Params.prismjs_soft_wrap) (eq site.Params.prismjs_soft_wrap "false")) }}
+{{- /* Determine whether to soft-wrap code */}}
+{{- if not (and (site.Params.prismjs_soft_wrap) (eq site.Params.prismjs_soft_wrap "false")) }}
 <style>code[class*=language-],pre[class*=language-]{white-space:pre-wrap!important}</style>
-{{ end }}
+{{- end }}
 
