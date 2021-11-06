@@ -1,5 +1,5 @@
 {
-    "version": "6.0.0",
+    "version": "7.0.0",
     "title": "Moondeer's Prism",
     "description": "A plugin for injecting Prism for syntax highlighting.",
     "includes": [
