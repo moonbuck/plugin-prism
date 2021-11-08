@@ -46,8 +46,8 @@
 {{- end }}
 {{- end }}
 
-{{- with .soft_wrap }}
-{{- $style := cond (eq . "true") "white-space:pre-wrap!important" "white-space:pre!important" }}
+{{- if (isset . "soft_wrap") }}
+{{- $style := cond (eq .soft_wrap "true") "white-space:pre-wrap!important" "white-space:pre!important" }}
 {{- if $attributes }}
 {{- $attributes = printf "%s style='%s'" $attributes $style }}
 {{- else }}
