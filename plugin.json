@@ -1,66 +1,66 @@
 {
-    "version": "7.0.0",
+    "version": "8.0.0",
     "title": "Moondeer's Prism",
     "description": "A plugin for injecting Prism for syntax highlighting.",
     "includes": [
-      "prismjs-injection.html",
+      "prism-injection.html",
       "/assets/css/prism.css"
       ],
      "fields": [
         {
-          "field": "params.prismjs_theme",
+          "field": "params.prism_Theme",
           "label": "PrismJS Theme",
           "placeholder": "moondeer"
         },
         {
-          "field": "params.prismjs_font_size",
+          "field": "params.prism_FontSize",
           "label": "Font Size",
           "placeholder": "0.5rem"
         },
         {
-          "field": "params.prismjs_minify", 
+          "field": "params.prism_Minify", 
           "label": "Minify CSS and Javascript",
           "placeholder": "true"
         },
         {
-          "field": "params.prismjs_line_numbers",
+          "field": "params.prism_LineNumbers",
           "label": "Add Line Numbers by Default",
           "placeholder": "false"
         },
         {
-          "field": "params.prismjs_enable_toolbar",
+          "field": "params.prism_EnableToolbar",
           "label": "Enable Toolbar",
           "placeholder": "true"
         },
         {
-          "field": "params.prismjs_soft_wrap",
+          "field": "params.prism_SoftWrap",
           "label": "Soft Wrap",
           "placeholder": "true"
         },
         {
-          "field": "params.prismjs_show_language",
+          "field": "params.prism_ShowLanguage",
           "label": "Show Language",
           "placeholder": "true"
         },
         {
-          "field": "params.prismjs_copy_button",
+          "field": "params.prism_KeepMarkup",
+          "label": "Keep Markup",
+          "placeholder": "true"
+        },
+        {
+          "field": "params.prism_CopyButton",
           "label": "Copy Button",
           "placeholder": "true"
         },
         {
-          "field": "params.prismjs_preserve_whitespace",
+          "field": "params.prism_PreserveWhitespace",
           "label": "Preserve Whitespace",
           "placeholder": "false"
         },
         {
-          "field": "params.prismjs_whitespace_settings_json",
-          "label": "Whitespace Settings",
+          "field": "params.prism_WhitespaceSettings",
+          "label": "Whitespace Settings (JSON)",
           "placeholder": ""
-        },
-        {
-          "field": "params.prismjs_keep_markup",
-          "label": "Keep Markup",
-          "placeholder": "true"
         }
      ]
   }
