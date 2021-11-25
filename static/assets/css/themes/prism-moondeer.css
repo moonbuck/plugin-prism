@@ -131,3 +131,5 @@ pre[class*=language-] {
 .token.entity {
   cursor: help;
 }
+
+pre > code > mark { color: #d7d7d6; }
