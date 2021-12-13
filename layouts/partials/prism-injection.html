@@ -1,3 +1,9 @@
+{{- /* 
+  Insert the plugin version and build time 
+  */ -}}
+{{- $time := (time (sub now.Unix 28800)).Format "Jan 2 at 15:04" -}}
+{{ printf "\n<!-- Prism v8.0.1 (built on %s) -->" $time | safeHTML }}
+
 {{- /* Resolve the data file. */ -}}
 {{- $theme_directory_file := site.Data.plugin_prism_defaults | default site.Data.plugin_prismjs_defaults -}}
 {{- $plugin_directory_file := site.Data.plugin_prism.defaults | default site.Data.plugin_prismjs.defaults -}}
