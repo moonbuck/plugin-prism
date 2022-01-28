@@ -1,11 +1,11 @@
 {{ with .Scratch.Get "plugin-prism.Parameters" -}}
 
-// Link unminified grammars when specified
+{{- /* Link unminified grammars when specified */ -}}
 {{- if not .Config.MinifyScript -}}
 Prism.plugins.autoloader.use_minified = false;
 {{- end }}
 
-// Determine whether whitespace normalization should be customized
+{{- /* Determine whether whitespace normalization should be customized */ -}}
 {{- with .Whitespace -}}
 Prism.plugins.NormalizeWhitespace.setDefaults({
   {{- if (isset . "RemoveTrailing") -}}
