@@ -1,66 +1,6 @@
 {
-    "version": "8.0.1",
+    "version": "9.0.0",
     "title": "Moondeer's Prism",
     "description": "A plugin for injecting Prism for syntax highlighting.",
-    "includes": [
-      "prism-injection.html",
-      "/assets/css/prism.css"
-      ],
-     "fields": [
-        {
-          "field": "params.prism_Theme",
-          "label": "PrismJS Theme",
-          "placeholder": "moondeer"
-        },
-        {
-          "field": "params.prism_FontSize",
-          "label": "Font Size",
-          "placeholder": "0.5rem"
-        },
-        {
-          "field": "params.prism_Minify", 
-          "label": "Minify CSS and Javascript",
-          "placeholder": "true"
-        },
-        {
-          "field": "params.prism_LineNumbers",
-          "label": "Add Line Numbers by Default",
-          "placeholder": "false"
-        },
-        {
-          "field": "params.prism_EnableToolbar",
-          "label": "Enable Toolbar",
-          "placeholder": "true"
-        },
-        {
-          "field": "params.prism_SoftWrap",
-          "label": "Soft Wrap",
-          "placeholder": "true"
-        },
-        {
-          "field": "params.prism_ShowLanguage",
-          "label": "Show Language",
-          "placeholder": "true"
-        },
-        {
-          "field": "params.prism_KeepMarkup",
-          "label": "Keep Markup",
-          "placeholder": "true"
-        },
-        {
-          "field": "params.prism_CopyButton",
-          "label": "Copy Button",
-          "placeholder": "true"
-        },
-        {
-          "field": "params.prism_PreserveWhitespace",
-          "label": "Preserve Whitespace",
-          "placeholder": "false"
-        },
-        {
-          "field": "params.prism_WhitespaceSettings",
-          "label": "Whitespace Settings (JSON)",
-          "placeholder": ""
-        }
-     ]
+    "includes": [ "plugin-prism/injection.html" ]
   }

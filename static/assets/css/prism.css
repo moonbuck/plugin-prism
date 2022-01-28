@@ -1,7 +1,0 @@
-span.line-numbers-rows span ::before {
-  margin-top: 0 !important;
-}
-
-pre.code-block {
-  margin-top: 50px;
-}

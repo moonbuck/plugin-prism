@@ -1,0 +1,52 @@
+@import "vendor/rfs";
+
+// Template for injecting rfs include directives into a Sass block.
+{{ define "rfs-wrap" }}
+
+  //Generate a slice with all the property names.
+  {{ $edges := slice "top" "right" "bottom" "left" }}
+  {{ $properties := 
+    slice "font-size" "padding" "margin"
+    | append (apply $edges "printf" "padding-%s" ".") 
+    | append (apply $edges "printf" "margin-%s" ".") }}
+
+  //Convert the slice for use within the regular expression.
+  {{ $properties = delimit $properties "|" }}
+
+  // Create the regular expression
+  {{ $pattern := printf `(%s):\w*([^;]+)`  }}
+
+  // Replace matches with the appropriate rfs include.
+  {{ replaceRE $pattern `@include $1($2)` . }}
+
+{{ end }}
+
+{{ with .Scratch.Get "plugin-prism.Parameters" }}
+
+@import "themes/{{ .Config.Theme }}";
+
+{{ if .Config.EnableToolbar }}
+
+@import "prism-toolbar";
+
+{{ end }}
+
+span.line-numbers-rows span ::before {
+  margin-top: 0 !important;
+}
+
+pre.code-block {
+  margin-top: 50px;
+}
+
+code[class*=language-],
+pre[class*=language-] {
+  font-size:{{ .Config.FontSize }}!important;
+}
+
+code[class*=language-],
+pre[class*=language-] {
+  white-space:pre{{ with .Config.SoftWrap }}-wrap{{ end }};
+}
+
+{{ end }}

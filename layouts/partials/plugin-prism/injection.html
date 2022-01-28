@@ -1,0 +1,86 @@
+{{- if (or (.HasShortCode "highlight") (.HasShortcode "language")) -}}
+
+{{- /* Resolve the plugin parameter values. */ -}}
+{{- partial "plugin-prism/load-parameters.html" . -}}
+
+{{- with (.Scratch.Get "plugin-prism.Parameters") -}}
+
+  {{- if .Config.DebugPrint -}}
+    {{- printf "\n<!--plugin-prism.Parameters:\n%s\n-->" (jsonify .) | safeHTML -}}
+  {{- end -}}
+
+  {{- /* Insert the plugin version and build time */ -}}
+  {{- $time := (time (sub now.Unix 28800)).Format "Jan 2 at 15:04" -}}
+  {{- $version := .Config.Version -}}
+  {{ printf "\n<!-- Prism v%s (built on %s) -->\n" $version $time | safeHTML }}
+  
+  {{- /* Create a slice with the names of the plugins to load. */ -}}
+  {{- $dir := "js/plugin-prism/plugins" -}}
+  {{- $plugins := slice "autoloader" 
+                        "unescaped-markup"
+                        "keep-markup"
+                        "normalize-whitespace"
+                        "highlight-keywords"
+                        "line-numbers" -}}
+  {{- if .Config.EnableToolbar -}}
+    {{- $plugins = $plugins | append "toolbar" -}}
+    {{- if .Config.ShowLanguage -}}
+      {{- $plugins = $plugins | append "show-language" -}}
+    {{- end -}}
+    {{- if .Config.CopyButton -}}
+      {{- $plugins = $plugins | append "copy-to-clipboard" -}}
+    {{- end -}}
+  {{- end -}}
+  
+  {{- /* Create a slice with scripts to concatenate */ -}}
+  {{- $scripts := slice (resources.Get "js/plugin-prism/prism.js") -}}
+  {{- range $name := $plugins -}}
+    {{- $source := printf "%s/%s/prism-%s.js" $dir $name $name -}}
+    {{- $scripts = $scripts | append resources.Get $source -}}
+  {{- end -}}
+  {{- $source_dir := "js/plugin-prism/" -}}
+  {{- $template_name := "configure.js" -}}
+  {{- $source := path.Join $source_dir $template_name -}}
+  {{- $target := path.Join "assets" $source -}}
+  {{- $configure := resources.Get $source
+                    | resources.ExecuteAsTemplate $target $ -}}                    
+  {{- $scripts = $scripts | append $configure -}}
+  
+  {{- /* Concatenate the scripts. */ -}}
+  {{- $target = path.Join (path.Dir $target) "prism-bundle.js" -}}
+  {{- $script := $scripts | resources.Concat $target -}}
+  
+  {{- if .Config.MinifyScript -}}
+    {{- $script = $script | minify -}}
+  {{- end -}}
+  
+  {{- if .Config.Fingerprint -}}
+    {{- $script = $script | fingerprint -}}
+  {{- end -}}  
+  
+  {{- print "\n" -}}
+<script src="{{ $script.Permalink }}"
+{{- if .Config.Fingerprint }} integrity="{{ $script.Data.Integrity }}"{{ end -}}
+></script>
+
+  {{- /* Build and link the stylesheet. */ -}}
+  {{- $source_dir = "sass/plugin-prism/" -}}
+  {{- $template_name = "prism.scss" -}}
+  {{- $source = path.Join $source_dir $template_name -}}
+  {{- $target = path.Join "assets" $source -}}
+  {{- $style := resources.Get $source | resources.ExecuteAsTemplate $target $ -}} 
+
+  {{- $target = $target | replaceRE "sass|scss" "css" -}}
+  {{- $options := dict "targetPath" $target "outputStyle" .Config.SassOutput -}}
+  {{- $style = $style | toCSS $options -}}
+
+  {{- if .Config.Fingerprint }}{{ $style = $style | fingerprint }}{{ end -}}
+  
+  {{- print "\n" -}}
+<link rel="stylesheet" href="{{ $style.Permalink }}"
+{{- if .Config.Fingerprint }} integrity="{{ $style.Data.Integrity }}"{{ end -}}
+>
+
+{{- end -}}
+
+{{ end -}}

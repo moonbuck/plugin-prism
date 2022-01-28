@@ -1,0 +1,29 @@
+# Settings to pass through to the Normalize Whitespace plugin.
+##############################################################
+
+# Removes trailing whitespace on all lines.
+RemoveTrailing = true
+
+# If the whole code block is indented too much it removes the extra indent.
+RemoveIndent = true
+
+# Removes all whitespace from the top of the code block.
+LeftTrim = true
+
+# Removes all whitespace from the bottom of the code block.
+RightTrim = true
+
+# Simple way of breaking long lines at a certain length (default is 80 characters).
+# BreakLines = 80
+
+# Adds a certain number of tabs to every line.
+# Indent = 2
+
+# Less aggressive version of left-trim. It only removes a single line feed from the top of the code block.
+# RemoveInitialLineFeed = false
+
+# Converts all tabs to a certain number of spaces (default is 4 spaces).
+# TabsToSpaces = 4
+
+# Converts a certain number of spaces to a tab (default is 4 spaces).
+# SpacesToTabs = 4

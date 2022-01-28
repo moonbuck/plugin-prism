@@ -1,0 +1,82 @@
+{{- if not (.Page.Scratch.Get "plugin-prism.Parameters") -}}
+  {{- partial "plugin-prism/load-parameters.html" . -}}
+{{- end -}}
+
+{{- $Parameters := .Page.Scratch.Get "plugin-prism.Parameters" -}}
+
+{{- if .Inner -}}
+
+{{- $fence_open := .inner | findRE "^[ \n\t\r]*```" -}}
+{{- if $fence_open -}}
+{{- $fence_open = index $fence_open 0 -}}
+
+{{- $code := .inner | strings.TrimPrefix $fence_open -}}
+
+{{- $language := $code | findRE "^[-a-z0-9]+" -}}
+{{- if $language -}}
+{{- $language = index $language 0 -}}
+
+{{- $code = $code | strings.TrimPrefix $language -}}
+
+{{- $fence_close := $code | findRE "```[ \n\t\r]*$" -}}
+{{- if $fence_close -}}
+{{- $fence_close = index $fence_close 0 -}}
+
+{{- $code = $code | strings.TrimSuffix $fence_close -}}
+
+{{- $class := printf "code-block language-%s" $language -}}
+
+{{- if (or .LineNumbers 
+            (and (not (isset . "LineNumbers")) 
+                 $Parameters.Config.LineNumbers) -}}
+{{- $class = printf "%s line-numbers" $class -}}
+{{- end -}}
+
+{{- if (or .PreserveWhitespace 
+           (and (not (isset . "PreserveWhitespace")) 
+                $Parameters.Config.PreserveWhitespace) -}}
+{{- $class = printf "%s no-whitespace-normalization" $class -}}
+{{- end -}}
+
+{{- if (or (and (isset . "KeepMarkup") (not .KeepMarkup))
+           (and (not (isset . "KeepMarkup")) 
+                (and (isset $Parameters.Config "KeepMarkup")
+                     (not $Parameters.Config.KeepMarkup))) -}}
+{{- $class = printf "%s no-keep-markup" $class -}}
+{{- end }}
+
+{{- $attributes := "" -}}
+{{- with .DataLanguage -}}
+{{- $attributes = printf "data-language='%s'" . -}}
+{{- end -}}
+
+{{- with .Dependencies -}}
+{{- if $attributes -}}
+{{- $attributes = printf "%s data-dependencies='%s'" $attributes . -}}
+{{- else -}}
+{{- $attributes = printf "data-dependencies='%s'" . -}}
+{{- end -}}
+{{- end -}}
+
+{{- if (isset . "SoftWrap") -}}
+{{- $style := cond (eq .SoftWrap "true") "white-space:pre-wrap!important" "white-space:pre!important" -}}
+{{- if $attributes -}}
+{{- $attributes = printf "%s style='%s'" $attributes $style -}}
+{{- else -}}
+{{- $attributes = printf "style='%s'" $style -}}
+{{- end -}}
+{{- end -}}
+
+{{- with $attributes -}}
+{{- printf "<script type='text/plain' class='%s' %s>\n%s\n</script>" $class . (htmlUnescape $code) | safeHTML -}}
+{{- else -}}
+{{- printf "<script type='text/plain' class='%s'>\n%s\n</script>" $class (htmlUnescape $code) | safeHTML -}}
+{{- end -}}
+
+{{- end -}}
+
+{{- end -}}
+
+{{- end -}}
+
+{{- end -}}
