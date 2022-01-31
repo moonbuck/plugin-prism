@@ -1,6 +1,35 @@
-{{- $Parameters := dict "Page" .Page "Inner" .Inner -}}
-{{- range $key, $value := $.Params -}}        
-  {{- $key = $key | humanize | title | replaceRE " " "" -}}
-  {{- $Parameters = merge $Parameters (dict $key $value) -}}
+{{- /* 
+  Parses a code fence and invokes the highlight partial, passing
+  along any named parameters.
+  */ -}}
+
+{{- if .Inner -}}
+
+  {{- /* Grab the text with whitespace trimmed. */ -}}
+  {{- $Code := .Inner | chomp | strings.TrimLeft "\n\r\t " -}}
+  
+  {{- $Language := "" -}}
+  
+  {{- with findRE "^```([-a-z0-9]+)" $Code -}}
+    {{- $Language = (index . 0) | strings.TrimPrefix "```" -}}
+    {{- $Code = strings.TrimPrefix (index . 0) $Code | strings.TrimSuffix "```" | chomp -}}
+  {{- end -}}
+    
+  {{- if (and $Code $Language) -}}
+  
+    {{- $Parameters := dict 
+      "Page" .Page 
+      "Code" $Code
+      "Language" $Language
+      -}}
+    
+    {{- range $key, $value := $.Params -}}        
+      {{- $key = $key | humanize | title | replaceRE " " "" -}}
+      {{- $Parameters = merge $Parameters (dict $key $value) -}}
+    {{- end -}}
+    
+    {{ partial "plugin-prism/highlight.html" $Parameters }}
+  
+  {{- end -}}
+
 {{- end -}}
-{{ partial "plugin-prism/highlight.html" $Parameters }}

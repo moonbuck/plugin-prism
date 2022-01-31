@@ -1,82 +1,94 @@
-{{- if not (.Page.Scratch.Get "plugin-prism.Parameters") -}}
-  {{- partial "plugin-prism/load-parameters.html" . -}}
-{{- end -}}
+{{- /* 
+ 
+  Required parameters:
+    Page: The page context.
+    Code: The code to syntax highlight.
+    Language: The language of the code to syntax highlight.
+    
+  Optional parameters:
+    LineNumbers: Whether to include line numbers.
+    PreserveWhitespace: Whether to preserve the whitespace.
+    KeepMarkup: Whether to preserve <mark> tags.
+    SoftWrap: Whether to soft wrap code.
+  
+  */ -}}
 
-{{- $Parameters := .Page.Scratch.Get "plugin-prism.Parameters" -}}
+{{- /* Ensure there required parameters are present. */ -}}
+{{- if (and .Page (and .Code .Language)) -}}
+  
+  {{- /* Resolve the plugin parameters. */ -}}
+  {{- if not (.Page.Scratch.Get "plugin-prism.Parameters") -}}
+    {{- partial "plugin-prism/load-parameters.html" .Page -}}
+  {{- end -}}
+  {{- $Parameters := .Page.Scratch.Get "plugin-prism.Parameters" -}}
 
-{{- if .Inner -}}
+  {{- /* Generate the list of class names to apply. */ -}}
+  {{- $classes := slice "code-block" (printf "language-%s" .Language) -}}
+  
+  {{- /* Add line numbers iff provided a truthy parameter
+         or no parameter was provided and the default plugin
+         parameter value is truthy  */ -}}
+  {{- if (or 
+            .LineNumbers 
+            (and
+                $Parameters.Config.LineNumbers
+                (not (isset . "LineNumbers")) 
+              )
+           ) -}}
+    {{- $classes = $classes | append "line-numbers" -}}
+  {{- end -}}
 
-{{- $fence_open := .inner | findRE "^[ \n\t\r]*```" -}}
-{{- if $fence_open -}}
-{{- $fence_open = index $fence_open 0 -}}
+  {{- /* Preserve whitespace iff provided a truthy parameter
+         or no parameter was provided and the default plugin
+         parameter value is truthy  */ -}}       
+  {{- if (or 
+            .PreserveWhitespace 
+            (and 
+              $Parameters.Config.PreserveWhitespace
+              (not (isset . "PreserveWhitespace"))                 
+              )
+            ) -}}
+    {{- $classes = $classes | append "no-whitespace-normalization" -}}
+  {{- end -}}
 
-{{- $code := .inner | strings.TrimPrefix $fence_open -}}
+  {{- /* Turn keep markup off iff provided a falsey parameter
+         or no parameter was provided and the default plugin
+         parameter value is falsey */ -}}
+  {{- if (or 
+            (and 
+              (isset . "KeepMarkup") 
+              (not .KeepMarkup)
+             )
+             (and 
+                (not (isset . "KeepMarkup")) 
+                (and 
+                  (isset $Parameters.Config "KeepMarkup")
+                  (not $Parameters.Config.KeepMarkup)
+                 )
+              )
+           ) -}}
+    {{- $classes = $classes | append "no-keep-markup" -}}
+  {{- end }}
 
-{{- $language := $code | findRE "^[-a-z0-9]+" -}}
-{{- if $language -}}
-{{- $language = index $language 0 -}}
+  {{- /* Add soft wrap class iff provided a truthy parameter
+         or no parameter was provided and the default plugin
+         parameter value is truthy  */ -}}
+  {{- if (or 
+            .SoftWrap 
+            (and
+                $Parameters.Config.SoftWrap
+                (not (isset . "SoftWrap")) 
+              )
+           ) -}}
+    {{- $classes = $classes | append "soft-wrap" -}}
+  {{- end -}}
+  
+  {{- /* Stick the code inside a script tag. */ -}}
+<script type="text/plain" class="{{ delimit $classes " " }}"
+{{- with .DataLanguage }} data-language="{{ . }}"{{ end -}}
+{{- with .Dependencies }} data-dependencies="{{ . }}"{{ end -}}
+>
+{{- .Code | htmlUnescape | safeHTML -}}
+</script>
 
-{{- $code = $code | strings.TrimPrefix $language -}}
-
-{{- $fence_close := $code | findRE "```[ \n\t\r]*$" -}}
-{{- if $fence_close -}}
-{{- $fence_close = index $fence_close 0 -}}
-
-{{- $code = $code | strings.TrimSuffix $fence_close -}}
-
-{{- $class := printf "code-block language-%s" $language -}}
-
-{{- if (or .LineNumbers 
-            (and (not (isset . "LineNumbers")) 
-                 $Parameters.Config.LineNumbers) -}}
-{{- $class = printf "%s line-numbers" $class -}}
-{{- end -}}
-
-{{- if (or .PreserveWhitespace 
-           (and (not (isset . "PreserveWhitespace")) 
-                $Parameters.Config.PreserveWhitespace) -}}
-{{- $class = printf "%s no-whitespace-normalization" $class -}}
-{{- end -}}
-
-{{- if (or (and (isset . "KeepMarkup") (not .KeepMarkup))
-           (and (not (isset . "KeepMarkup")) 
-                (and (isset $Parameters.Config "KeepMarkup")
-                     (not $Parameters.Config.KeepMarkup))) -}}
-{{- $class = printf "%s no-keep-markup" $class -}}
-{{- end }}
-
-{{- $attributes := "" -}}
-{{- with .DataLanguage -}}
-{{- $attributes = printf "data-language='%s'" . -}}
-{{- end -}}
-
-{{- with .Dependencies -}}
-{{- if $attributes -}}
-{{- $attributes = printf "%s data-dependencies='%s'" $attributes . -}}
-{{- else -}}
-{{- $attributes = printf "data-dependencies='%s'" . -}}
-{{- end -}}
-{{- end -}}
-
-{{- if (isset . "SoftWrap") -}}
-{{- $style := cond (eq .SoftWrap "true") "white-space:pre-wrap!important" "white-space:pre!important" -}}
-{{- if $attributes -}}
-{{- $attributes = printf "%s style='%s'" $attributes $style -}}
-{{- else -}}
-{{- $attributes = printf "style='%s'" $style -}}
-{{- end -}}
-{{- end -}}
-
-{{- with $attributes -}}
-{{- printf "<script type='text/plain' class='%s' %s>\n%s\n</script>" $class . (htmlUnescape $code) | safeHTML -}}
-{{- else -}}
-{{- printf "<script type='text/plain' class='%s'>\n%s\n</script>" $class (htmlUnescape $code) | safeHTML -}}
-{{- end -}}
-
-{{- end -}}
-
-{{- end -}}
-
-{{- end -}}
-
-{{- end -}}
+{{- end -}} {{- /* if (and .Page (and .Code .Language)) */ -}}

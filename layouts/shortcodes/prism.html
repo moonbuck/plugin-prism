@@ -5,29 +5,50 @@
   With positional parameters:
 
     Required parameters:
-      A single positional parameter specifying the language
+      A single positional parameter specifying the language or
+      no parameters and a code fence that specifies the language. 
 
   With named parameters:
   
     Required parameters:
-      language: The language of the code to highlight.
+      language: The language of the code to highlight, unless the
+                inner text includes a code fence specifying the
+                language.
 
     Optional parameters:
+      Any other named parameters to pass through to the partial.
     
   */ -}}
+
+
   
 {{- /* Grab the specified language. */ -}}
 {{- $Language := cond .IsNamedParams (.Get "language") (.Get 0) -}}
 
-{{- /* Ensure there is text to highlight and a specified language */ -}}
-{{- if (and $Language .Inner) -}}
+{{- /* Ensure there is text to highlight. */ -}}
+{{- if .Inner -}}
 
   {{- /* Grab the text with whitespace trimmed. */ -}}
   {{- $Code := .Inner | chomp | strings.TrimLeft "\n\r" -}}
 
   {{- /* Check for a code fence. */ -}}
-  {{- with findRE "^```[-a-z0-9]*" $Code -}}
-    {{- $Code = strings.TrimPrefix (index . 0) $Code | strings.TrimSuffix "```" | chomp -}}
+  {{- if (hasPrefix (strings.TrimLeft "\t " $Code) "```") -}}
+  
+    {{- /* Trim up to the fence. */ -}}
+    {{- $Code = $Code | strings.TrimLeft "\t " -}}
+  
+    {{- /* Check for language declaration. */ -}}
+    {{- with findRE "^```([-a-z0-9]+)" $Code -}}
+      {{- $Language = (index . 0) | strings.TrimPrefix "```" -}}
+      {{- $Code = strings.TrimPrefix (index . 0) $Code | strings.TrimSuffix "```" | chomp -}}
+
+    {{- /* Otherwise, just grab the code. */ -}}
+    {{- else -}}
+      {{- $Code = strings.TrimPrefix "```" $Code 
+                | strings.TrimLeft "\n"
+                | strings.TrimSuffix "```" | chomp -}}
+    
+    {{- end -}} {{- /* with findRE "^```([-a-z0-9]+)" $Code */ -}}
     
   {{- /* Otherwise, check for indentation. */ -}}
   {{- else -}}
@@ -51,10 +72,10 @@
       {{- $Code = delimit $unindented "\n" -}}    
     {{- end -}}
           
-  {{- end -}} {{- /* if findRE $pattern $Code */ -}}
+  {{- end -}} {{- /* if (hasPrefix (strings.TrimLeft "\t " $Code) "```") */ -}}
   
-  {{- /* Ensure code has been extracted from .Inner */ -}}
-  {{- if $Code -}}
+  {{- /* Ensure the code and language have been resolved. */ -}}
+  {{- if (and $Language $Code) -}}
     
     {{- /* Create the parameter map. */ -}}
     {{- $Parameters := dict 
@@ -67,13 +88,13 @@
     {{- if .IsNamedParams -}}
       {{- range $key, $value := $.Params -}}        
         {{- $key = $key | humanize | title | replaceRE " " "" -}}
-        {{- $Parameters = merge $Parameters (dict $key $value) -}}
+        {{- $Parameters = merge (dict $key $value) $Parameters -}}
       {{- end -}}
     {{- end -}} {{- /* if .IsNamedParams */ -}}
       
     {{- /* Invoke the partial with the parameter map. */ -}}
     {{ partial "plugin-prism/highlight.html" $Parameters }}
       
-  {{ end }} {{- /* if $Inner */ -}}
+  {{ end }} {{- /* if (and $Language $Code) */ -}}
   
-{{- end -}} {{- /* if (and $Language .Inner) */ -}}
+{{- end -}} {{- /* if .Inner */ -}}

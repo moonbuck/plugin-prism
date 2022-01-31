@@ -1,5 +1,8 @@
 {{ with .Scratch.Get "plugin-prism.Parameters" -}}
 
+{{- /* Ensure the autoloader plugin has the path to the grammars. */ -}}
+Prism.plugins.autoloader.languages_path = '/assets/js/plugin-prism/components/';
+
 {{- /* Link unminified grammars when specified */ -}}
 {{- if not .Config.MinifyScript -}}
 Prism.plugins.autoloader.use_minified = false;
